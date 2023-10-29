@@ -46,7 +46,7 @@ play_board.addPeice(p1,4,2)
 play_board.addPeice(p2, 5,7)
 play_board.addPeice(p3,7,7)
 
-
+#Testing current postion method
 print(p1.currentPosition())
 print(p2.currentPosition())
 print(p3.currentPosition())

@@ -1,19 +1,24 @@
-import numpy as np
+# git add main.py
+# git commit -m "TEST"
+# git push origin master
 
-#board = np.zeros([8,8]) #Chess board as an 8x8 array
+import numpy as np
 
 move_stack =[]
 
 #Peice class
 class Peice:
+    #Constructor which initiialzes the x and y position of the Peice
     def __init__(self):
         self.pos_x = 0
         self.pos_y = 0
         
+    #Updates the associated x and y postion so the peice can keep track of it's location
     def updatePosition(self, pos_x, pos_y):
         self.pos_x = pos_x
         self.pos_y = pos_y
 
+    #Returns the current location of the peice
     def currentPosition(self):
         return self.pos_x, self.pos_y
     
@@ -28,25 +33,27 @@ class Board:
         self.board[pos_x,pos_y]= Peice
         Peice.updatePosition(pos_x, pos_y)
 
-    #Removes a given peice from the 8x8 board array 
-    # def removePeice(Peice, self):
-        
+    #Removes a given peice from the 8x8 board array(By replacing with a 0)
+    #Find a better way to do this
+    def removePeice(self, Peice):
+        #np.delete(self.board, [Peice.currentPosition()])
+        self.board[Peice.currentPosition()]= 0
     
     # #Moves a given peice to a target position
-    # def movePeice(Peice, target, self):
-    #     self.board
+    def movePeice(self, Peice):
+        self.board.removePeice(Peice)
 
 play_board = Board() 
 
 p1 = Peice()    
-p2 = Peice()
-p3 = Peice()
+
+
+#print(p1.currentPosition()[0])
 
 play_board.addPeice(p1,4,2)
-play_board.addPeice(p2, 5,7)
-play_board.addPeice(p3,7,7)
+print(p1.currentPosition()[0])
 
-#Testing current postion method
-print(p1.currentPosition())
-print(p2.currentPosition())
-print(p3.currentPosition())
+print(play_board.board)
+play_board.removePeice(p1)
+
+print(play_board.board)

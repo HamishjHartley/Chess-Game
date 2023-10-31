@@ -40,8 +40,9 @@ class Board:
         self.board[Peice.currentPosition()]= 0
     
     # #Moves a given peice to a target position
-    def movePeice(self, Peice):
+    def movePeice(self, Peice, pos_x, pos_y):
         self.board.removePeice(Peice)
+        self.board.addPeice(Peice, pos_x, pos_y)
 
 play_board = Board() 
 

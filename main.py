@@ -10,10 +10,13 @@ move_stack =[]
 #Peice Parent class, from which all peice types inherit
 class Peice:
     #Constructor which initiialzes the vertial and horizontal position of the Peice
-    def __init__(self):
+    #TODO: throw exception if colour not 0 or 1
+    def __init__(self, colour):
+        self.COLOUR = colour #Colour class constant, int value either 0 or 1
         self.pos_vert = 0
         self.pos_hor = 0
         self.legal_moves =[]
+        self.is_captured = False
         
     #Updates the associated vertical and horizontal postion so the peice can keep track of it's location
     def update_position(self, pos_vert, pos_hor):
@@ -28,17 +31,21 @@ class Peice:
 class Pawn(Peice):
     def __init__(self):
         Peice.__init__(self) #to keep the inheritance of Peice's "__init__" function
-        #Pawns movement rules
-        self.straight_ahead = [self.pos_vert+1, self.pos_hor]
-        self.capture_left = [self.pos_vert+1, self.pos_hor-1]
-        self.capture_right = [self.pos_vert+1, self.pos_hor+1]
 
     #Returns a list of legal move(s) specific to a Pawn peice
     def get_legal_moves(self):
+        #Pawns movement rules
+        self.straight_ahead = (self.pos_vert+1, self.pos_hor)
+        self.capture_left = (self.pos_vert+1, self.pos_hor-1)
+        self.capture_right = (self.pos_vert+1, self.pos_hor+1)
+
         #Search through adjecent squares in board array, 
-        if self.straight_ahead == 0:
+        if play_board.board[self.straight_ahead] == 0:
             self.legal_moves.append(self.straight_ahead)
-        #elif (capture square LEFT) has enemyPeice:
+        #elif board[LEFT] == opposite coloured Peice
+
+
+        #elif play_board.board[self.capture_left]:
         #   self.legal_moves.append(square index)
         #elif (capture square RIGHT) has enemyPeice:
         #   self.legal_moves.append(square index)
@@ -46,13 +53,14 @@ class Pawn(Peice):
 
 
 #Board class
-#is the controller class to which "Peices" are added, 
+#is the controller class to which "Peices" are added, handles events/interaction's between peices
 class Board:
     #constructor to initialize 8x8 board array
     def __init__(self):
         self.board = np.zeros((8,8), dtype=Peice)
 
     #Adds a peice to a position on the 8x8 board array defined by index (pos)
+    #TODO: Throw exception if position reference out of bounds of board array
     def add_peice(self, Peice, pos_vert, pos_hor):
         self.board[pos_vert,pos_hor]= Peice
         Peice.update_position(pos_vert, pos_hor)
@@ -70,14 +78,14 @@ class Board:
         self.board.remove_peice(Peice)
         self.board.add_peice(Peice, pos_vert, pos_hor)
 
-    #def getB
-        
-
 play_board = Board() 
 
-pawn1 = Pawn()    
+pawn1 = Pawn(0) #White pawn    
+pawn2 = Pawn(1) #Black pawn
 
-play_board.add_peice(pawn1,1,4) #Adding e2 pawn to board
-print(pawn1.current_position()) 
-print(play_board.board)
+play_board.add_peice(pawn1,1,4) #Add e2 pawn to board (WHITE)
+play_board.add_peice(pawn2,6,3) #Add d7 pawn to board (BLACK)
 
+
+print(pawn1.get_legal_moves())
+print(pawn2.get_legal_moves())

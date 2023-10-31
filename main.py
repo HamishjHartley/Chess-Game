@@ -9,32 +9,40 @@ move_stack =[]
 
 #Peice Parent class, from which all peice types inherit
 class Peice:
-    #Constructor which initiialzes the x and y position of the Peice
+    #Constructor which initiialzes the vertial and horizontal position of the Peice
     def __init__(self):
-        self.pos_x = 0
-        self.pos_y = 0
+        self.pos_vert = 0
+        self.pos_hor = 0
         self.legal_moves =[]
         
-    #Updates the associated x and y postion so the peice can keep track of it's location
-    def updatePosition(self, pos_x, pos_y):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
+    #Updates the associated vertical and horizontal postion so the peice can keep track of it's location
+    def updatePosition(self, pos_vert, pos_hor):
+        self.pos_vert = pos_vert
+        self.pos_hor = pos_hor
 
     #Returns the current location of the peice
     def currentPosition(self):
-        return self.pos_x, self.pos_y
+        return self.pos_vert, self.pos_hor
     
 #Pawn class which is a child class of Peice
 class Pawn(Peice):
     def __init__(self):
         Peice.__init__(self) #to keep the inheritance of Peice's "__init__" function
 
-    #Returns a list of legal move(s) 
-    def getLegalMoves(self):
+    #Returns a list of legal move(s) specific to a Pawn peice
+    def getLegalMoves(self, Board):
         #Search through adjecent squares in board array, 
-        #by adding [x, y]
-        #if sqaure is empty:
+        #by adding [vertical +1 , horiztonal +0 ] (Straight ahead)
+        Board.board[]
+        #[vertial + 1, horizontal -1], [vertical +1, horizontal +1] (capture squares)
+
+        #if (straight ahead) sqaure is empty:
         #   self.legal_moves.append(square index)
+        #elif (capture square LEFT) has enemyPeice:
+        #   self.legal_moves.append(square index)
+        #elif (capture square RIGHT) has enemyPeice:
+        #   self.legal_moves.append(square index)
+
         return self.legal_moves
 
 
@@ -46,10 +54,9 @@ class Board:
         self.board = np.zeros((8,8), dtype=Peice)
 
     #Adds a peice to a position on the 8x8 board array defined by index (pos)
-    #CAREFUL: pos_x and pos_y not aligned with outputted array axes
-    def addPeice(self, Peice, pos_x, pos_y):
-        self.board[pos_x,pos_y]= Peice
-        Peice.updatePosition(pos_x, pos_y)
+    def addPeice(self, Peice, pos_vert, pos_hor):
+        self.board[pos_vert,pos_hor]= Peice
+        Peice.updatePosition(pos_vert, pos_hor)
 
     #Removes a given peice from the 8x8 board array(By replacing with a 0)
     #TODO:Find a better way to do this
@@ -60,9 +67,9 @@ class Board:
     # #Moves a given peice to a target position
     #by removing from origional square and adding it to target square
     #TODO:Find better way to do this
-    def movePeice(self, Peice, pos_x, pos_y):
+    def movePeice(self, Peice, pos_vert, pos_hor):
         self.board.removePeice(Peice)
-        self.board.addPeice(Peice, pos_x, pos_y)
+        self.board.addPeice(Peice, pos_vert, pos_hor)
         
 
 play_board = Board() 

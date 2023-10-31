@@ -29,20 +29,21 @@ class Pawn(Peice):
     def __init__(self):
         Peice.__init__(self) #to keep the inheritance of Peice's "__init__" function
 
-    #Returns a list of legal move(s) specific to a Pawn peice
-    def getLegalMoves(self, Board):
-        #Search through adjecent squares in board array, 
-        #by adding [vertical +1 , horiztonal +0 ] (Straight ahead)
-        Board.board[]
-        #[vertial + 1, horizontal -1], [vertical +1, horizontal +1] (capture squares)
+        #Pawns movement rules
+        self.straight_ahead = Board.board[self.pos_vert+1, self.pos_hor]
+        self.capture_left = Board.board[self.pos_vert+1, self.pos_hor-1]
+        self.capture_right = Board.board[self.pos_vert+1, self.pos_hor+1]
 
-        #if (straight ahead) sqaure is empty:
-        #   self.legal_moves.append(square index)
+    #Returns a list of legal move(s) specific to a Pawn peice
+    def getLegalMoves(self):
+        #Search through adjecent squares in board array, 
+        if self.straight_ahead == 0:
+            self.legal_moves.append(self.straight_ahead)
+
         #elif (capture square LEFT) has enemyPeice:
         #   self.legal_moves.append(square index)
         #elif (capture square RIGHT) has enemyPeice:
         #   self.legal_moves.append(square index)
-
         return self.legal_moves
 
 

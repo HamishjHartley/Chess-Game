@@ -35,15 +35,27 @@ class Pawn(Peice):
     #Returns a list of legal move(s) specific to a Pawn peice
     def get_legal_moves(self):
         #Pawns movement rules
-        self.straight_ahead = (self.v+1, self.h)
-        self.capture_left = (self.v+1, self.h-1)
-        self.capture_right = (self.v+1, self.h+1)
+        straight_ahead = (self.v+1, self.h)
+        capture_left = (self.v+1, self.h-1)
+        capture_right = (self.v+1, self.h+1)
+
+        board_state = play_board.bit_board #Copies board state from bit board
 
         #Search through adjecent squares in board array, 
-        if play_board.board[self.straight_ahead] == 0:
-            self.legal_moves.append(self.straight_ahead)
-        #elif board[LEFT] == opposite coloured Peice
+        if board_state[straight_ahead] == 0:
+            self.legal_moves.append(straight_ahead)
+        elif board_state[straight_ahead] == self.COLOUR * -1: #if inverse of current peice's colour
+            self.legal_moves.append(straight_ahead)
+            
+        if board_state[capture_left] == 0:
+            self.legal_moves.append(capture_left)
+        elif board_state[capture_left] == self.COLOUR * -1: #if inverse of current peice's colour
+            self.legal_moves.append(capture_left)
 
+        if board_state[capture_right] == 0:
+            self.legal_moves.append(capture_right)
+        elif board_state[capture_right] == self.COLOUR * -1: #if inverse of current peice's colour
+            self.legal_moves.append(capture_right)
 
         #elif play_board.board[self.capture_left]:
         #   self.legal_moves.append(square index)
@@ -55,6 +67,7 @@ class Bishop(Peice):
     def __init__(self, colour):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
+    #Currently returns a list of all squares on left and right diagonals of bishop, ignoring other peices on diagonal
     def get_legal_moves(self):
         #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
         board_state = play_board.bit_board #Copies board state from bit board
@@ -67,9 +80,6 @@ class Bishop(Peice):
             #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             search_pos[0] += 1
             search_pos[1] += 1
-
-            # print(search_pos[0])
-            # print(search_pos[1])
 
         #down right
         search_pos = [self.v, self.h] #Peices current position, used as the start of the search
@@ -89,7 +99,6 @@ class Bishop(Peice):
         search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         while search_pos[0] >= 0 and search_pos[1] >= 0:
             self.legal_moves.append([search_pos[0], search_pos[1]])
-            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             search_pos[0] -= 1
             search_pos[1] -= 1
         
@@ -133,16 +142,21 @@ class Board:
 play_board = Board() 
 
 pawn1 = Pawn(1) #White pawn    
-pawn2 = Pawn(-1) #Black pawn
+pawn2 = Pawn(1) #White pawn
+
+pawn3 = Pawn(-1) #Black pawn
+pawn4 = Pawn(-1) #Black pawn
+
 bishop1 = Bishop(1) #White bishop
 
-play_board.add_peice(pawn1,6,6) #Add e2 pawn to board (WHITE)
-play_board.add_peice(pawn2,6,3) #Add d7 pawn to board (BLACK)
-play_board.add_peice(bishop1, 2,4)
+play_board.add_peice(pawn2,5,3)
+play_board.add_peice(pawn1,6,2)
+play_board.add_peice(pawn4,6,4)
+
 
 print(play_board.bit_board)
 
-print(bishop1.get_legal_moves())
+print(pawn2.get_legal_moves())
 
 
 # print(pawn1.get_legal_moves())

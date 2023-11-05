@@ -8,7 +8,7 @@ class King(Peice):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
     def get_legal_moves(self,bit_board):
-        possible_moves =[(1,-1), (1,0),(1,1),(0,1),(-1,1),(-1,0),(-1,-1),(0,-1)] #8 Possible squares knight can hop to, relative to current square
+        possible_moves =[(1,-1), (1,0),(1,1),(0,1),(-1,1),(-1,0),(-1,-1),(0,-1)] #8 Possible squares king can move to, relative to current square
 
         board_state = bit_board
 

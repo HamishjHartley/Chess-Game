@@ -29,12 +29,12 @@ rook1 = Rook(1)
 # play_board.add_peice(pawn4,6,4)
 # play_board.add_peice(knight1,4,5)
 play_board.add_peice(bishop1,5,4)
-#play_board.add_peice(rook1, 2,4)
+play_board.add_peice(rook1, 2,4)
 
 #print(play_board.bit_board)
 
 # print(pawn2.get_legal_moves())
-print(play_board.bit_board)
+#print(play_board.bit_board)
 #print(rook1.get_legal_moves(play_board.bit_board))
 print(bishop1.get_legal_moves(play_board.bit_board))
 

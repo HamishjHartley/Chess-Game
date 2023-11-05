@@ -9,47 +9,35 @@ class Rook(Peice):
         origin_pos = [self.v, self.h]
 
         #up
-        search_pos = origin_pos
+        search_pos = [self.v, self.h]
         while search_pos[0] <=7:
-            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
-                break
-            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
-                self.legal_moves.append([search_pos[0], search_pos[1]])
-                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
+            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            #bit_board[search_pos] = 9
             search_pos[0] += 1
 
         #down
-        search_pos = origin_pos
+        search_pos = [self.v, self.h]
         while search_pos[0] >=0:
-            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
-                break
-            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
-                self.legal_moves.append([search_pos[0], search_pos[1]])
-                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
+            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            #bit_board[search_pos] = 9
             search_pos[0] -= 1
 
         #left
-        search_pos = origin_pos
+        search_pos = [self.v, self.h]
         while search_pos[1] >=0:
-            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
-                break
-            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
-                self.legal_moves.append([search_pos[0], search_pos[1]])
-                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
+            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            #bit_board[search_pos] = 9
             search_pos[1] -= 1
 
         #right
-        search_pos = origin_pos
+        search_pos = [self.v, self.h]
         while search_pos[1] <=7:
-            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
-                break
-            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
-                self.legal_moves.append([search_pos[0], search_pos[1]])
-                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
+            #bit_board[search_pos] = 9
             search_pos[1] += 1
 
+        #print(bit_board)
         return self.legal_moves

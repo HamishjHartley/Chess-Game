@@ -1,5 +1,6 @@
 import numpy as np
-import Peice
+from Peice import Peice
+from Board import Board
 
 #Pawn class which is a child class of Peice
 class Pawn(Peice):
@@ -7,13 +8,13 @@ class Pawn(Peice):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
     #Returns a list of legal move(s) specific to a Pawn peice
-    def get_legal_moves(self):
+    def get_legal_moves(self, bit_board):
         #Pawns movement rules
         straight_ahead = (self.v+1, self.h)
         capture_left = (self.v+1, self.h-1)
         capture_right = (self.v+1, self.h+1)
 
-        board_state = play_board.get_bit_board() #Copies board state from bit board
+        board_state = bit_board #Copies board state from bit board
 
         #Straight ahead
         if board_state[straight_ahead] == 0:

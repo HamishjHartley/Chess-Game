@@ -1,4 +1,4 @@
-import Peice
+from Peice import Peice
 
 class Rook(Peice):
     def __init__(self, colour):

@@ -1,5 +1,5 @@
 import numpy as np
-import Peice
+from Peice import Peice
 
 #Board class
 #is the controller class to which "Peices" are added, handles events/interaction's between peices

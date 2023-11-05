@@ -1,5 +1,6 @@
 import numpy as np
-import Peice
+from Peice import Peice
+from Board import Board
 
 #Bishop class which is a child class of Peice
 class Bishop(Peice):
@@ -7,9 +8,9 @@ class Bishop(Peice):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
     #Currently returns a list of all squares on left and right diagonals of bishop, ignoring other peices on diagonal
-    def get_legal_moves(self):
+    def get_legal_moves(self, bit_board):
         #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
-        board_state = play_board.get_bit_board() #Copies board state from bit board
+        board_state = bit_board #Copies board state from bit board
         origin_pos = [self.v, self.h] #Peice's starting position at turn
 
 

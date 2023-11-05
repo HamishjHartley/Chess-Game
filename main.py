@@ -1,11 +1,12 @@
 import numpy as np
 
-import Peice
-import Pawn
-import Bishop
-import Knight
-import Rook
-import Board
+from Peice import Peice
+from Pawn import Pawn
+from Bishop import Bishop
+from Knight import Knight
+from Rook import Rook
+
+from Board import Board
 
 #TODO: possibly create Move class, or move this to Board class
 move_stack =[]
@@ -24,12 +25,12 @@ knight1 = Knight(1) #White knight
 play_board.add_peice(pawn2,5,3)
 play_board.add_peice(pawn1,6,2)
 play_board.add_peice(pawn4,6,4)
-play_board.add_peice(knight1,0,0)
+play_board.add_peice(knight1,4,5)
 
 #print(play_board.bit_board)
 
 # print(pawn2.get_legal_moves())
-print(knight1.get_legal_moves())
+print(knight1.get_legal_moves(play_board.bit_board))
 
 
 # print(pawn1.get_legal_moves())

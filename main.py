@@ -5,6 +5,8 @@ from Pawn import Pawn
 from Bishop import Bishop
 from Knight import Knight
 from Rook import Rook
+from Queen import Queen
+from King import King
 
 from Board import Board
 
@@ -23,6 +25,8 @@ bishop1 = Bishop(1)
 # knight1 = Knight(1) 
 
 rook1 = Rook(1)
+queen1 = Queen(1)
+king1 = King(1)
 
 # play_board.add_peice(pawn2,5,3)
 # play_board.add_peice(pawn1,6,2)
@@ -30,13 +34,17 @@ rook1 = Rook(1)
 # play_board.add_peice(knight1,4,5)
 play_board.add_peice(bishop1,5,4)
 play_board.add_peice(rook1, 2,4)
+play_board.add_peice(queen1, 3,3)
+play_board.add_peice(king1,5,5)
 
 #print(play_board.bit_board)
 
 # print(pawn2.get_legal_moves())
 #print(play_board.bit_board)
 #print(rook1.get_legal_moves(play_board.bit_board))
-print(bishop1.get_legal_moves(play_board.bit_board))
+#print(queen1.get_legal_moves(play_board.bit_board))
+print(king1.get_legal_moves(play_board.bit_board))
+
 
 
 # print(pawn1.get_legal_moves())

@@ -71,19 +71,28 @@ class Bishop(Peice):
     def get_legal_moves(self):
         #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
         board_state = play_board.bit_board #Copies board state from bit board
-        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         
         #board_state[search_pos[0],search_pos[1]] != self.COLOUR
         #up right
+        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         while search_pos[0] <= 7 and search_pos[1] <= 7:
+            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
+                break
+            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
+                self.legal_moves.append([search_pos[0], search_pos[1]])
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
-            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             search_pos[0] += 1
             search_pos[1] += 1
 
         #down right
         search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         while search_pos[0] >= 0 and search_pos[1] <= 7:
+            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
+                break
+            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
+                self.legal_moves.append([search_pos[0], search_pos[1]])
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] -= 1
             search_pos[1] += 1
@@ -91,6 +100,11 @@ class Bishop(Peice):
         #up left
         search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         while search_pos[0] <= 7 and search_pos[1] >= 0:
+            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
+                break
+            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
+                self.legal_moves.append([search_pos[0], search_pos[1]])
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] += 1
             search_pos[1] -= 1
@@ -98,10 +112,15 @@ class Bishop(Peice):
         #down left
         search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         while search_pos[0] >= 0 and search_pos[1] >= 0:
+            if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
+                break
+            elif board_state[search_pos[0],search_pos[1]] == self.COLOUR *-1:
+                self.legal_moves.append([search_pos[0], search_pos[1]])
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] -= 1
             search_pos[1] -= 1
-        
+
         return self.legal_moves
 
 #Board class

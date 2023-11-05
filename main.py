@@ -1,6 +1,6 @@
 # git add main.py
 # git commit -m "TEST"
-# git push origin master
+# git push origin main
 
 import numpy as np
 
@@ -51,13 +51,28 @@ class Pawn(Peice):
         #   self.legal_moves.append(square index)
         return self.legal_moves
     
-    # class Bishop(Peice):
-    #     def __init__(self, colour):
-    #         Peice.__init__(self) #to keep the inheritance of Peice's "__init__" function
+    class Bishop(Peice):
+        def __init__(self, colour):
+            Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
-    #     def get_legal_moves(self):
-    #         #up right grid travelersal
-    #         return self.legal_moves
+        def get_legal_moves(self):
+            #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
+            board_state = play_board.bit_board #Copies board state from bit board
+
+            search_pos = (self.v, self.h) #Peices current position, used as the start of the search
+            
+
+            #up right
+            while(board_state[search_pos] != None or board_state != self.COLOUR): #TODO: FIX: Currently adds peice's initial position to legal_moves 
+                self.legal_moves.append(search_pos)
+                search_pos[0] += 1
+                search_pos[1] += 1
+            
+
+            #down right
+            #up left
+            #down right
+            return self.legal_moves
 
 
 #Board class
@@ -90,8 +105,8 @@ class Board:
     #by removing from origional square and adding it to target square
     #TODO:Find better way to do this
     def move_peice(self, Peice, v, h):
-        self.board.remove_peice(Peice)
-        self.board.add_peice(Peice, v, h)
+        self.remove_peice(Peice)
+        self.add_peice(Peice, v, h)
 
 play_board = Board() 
 
@@ -101,6 +116,9 @@ pawn2 = Pawn(-1) #Black pawn
 play_board.add_peice(pawn1,1,4) #Add e2 pawn to board (WHITE)
 play_board.add_peice(pawn2,6,3) #Add d7 pawn to board (BLACK)
 
+print(play_board.bit_board)
+
+play_board.move_peice(pawn1,7,7)
 print(play_board.bit_board)
 
 # print(pawn1.get_legal_moves())

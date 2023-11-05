@@ -39,28 +39,26 @@ class Pawn(Peice):
         capture_left = (self.v+1, self.h-1)
         capture_right = (self.v+1, self.h+1)
 
-        board_state = play_board.bit_board #Copies board state from bit board
+        board_state = play_board.get_bit_board() #Copies board state from bit board
 
-        #Search through adjecent squares in board array, 
+        #Straight ahead
         if board_state[straight_ahead] == 0:
             self.legal_moves.append(straight_ahead)
         elif board_state[straight_ahead] == self.COLOUR * -1: #if inverse of current peice's colour
             self.legal_moves.append(straight_ahead)
-            
+        
+        #Capture left
         if board_state[capture_left] == 0:
             self.legal_moves.append(capture_left)
         elif board_state[capture_left] == self.COLOUR * -1: #if inverse of current peice's colour
             self.legal_moves.append(capture_left)
 
+        #Capture right
         if board_state[capture_right] == 0:
             self.legal_moves.append(capture_right)
         elif board_state[capture_right] == self.COLOUR * -1: #if inverse of current peice's colour
             self.legal_moves.append(capture_right)
 
-        #elif play_board.board[self.capture_left]:
-        #   self.legal_moves.append(square index)
-        #elif (capture square RIGHT) has enemyPeice:
-        #   self.legal_moves.append(square index)
         return self.legal_moves
 
 class Bishop(Peice):
@@ -70,12 +68,12 @@ class Bishop(Peice):
     #Currently returns a list of all squares on left and right diagonals of bishop, ignoring other peices on diagonal
     def get_legal_moves(self):
         #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
-        board_state = play_board.bit_board #Copies board state from bit board
-        
-        #board_state[search_pos[0],search_pos[1]] != self.COLOUR
+        board_state = play_board.get_bit_board() #Copies board state from bit board
+        origin_pos = [self.v, self.h] #Peice's starting position at turn
+
+
         #up right
-        #
-        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        search_pos = origin_pos #Peices current position, used as the start of the search
         while search_pos[0] <= 7 and search_pos[1] <= 7:
             if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
                 break
@@ -87,7 +85,7 @@ class Bishop(Peice):
             search_pos[1] += 1
 
         #down right
-        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        search_pos = origin_pos #Peices current position, used as the start of the search
         while search_pos[0] >= 0 and search_pos[1] <= 7:
             if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
                 break
@@ -99,7 +97,7 @@ class Bishop(Peice):
             search_pos[1] += 1
 
         #up left
-        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        search_pos = origin_pos #Peices current position, used as the start of the search
         while search_pos[0] <= 7 and search_pos[1] >= 0:
             if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 
                 break
@@ -122,6 +120,32 @@ class Bishop(Peice):
             search_pos[0] -= 1
             search_pos[1] -= 1
 
+        return self.legal_moves
+
+class Knight(Peice):
+    def __init__(self, colour):
+        Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
+
+    def get_legal_moves(self):
+        possible_moves =[(1,-2), (2,-1),(2,1),(1,2),(-1,-2),(-2,-1),(-2,1),(-1,2)] #8 Possible squares knight can hop to, relative to current square
+
+        board_state = play_board.get_bit_board()
+
+        for i in range(len(possible_moves)):
+            if board_state[self.v + possible_moves[i][0],self.h + possible_moves[i][1]] == self.COLOUR *-1: #if square has opposite coloured peice
+                self.legal_moves.append((self.v + possible_moves[i][0],self.h + possible_moves[i][1]))
+                board_state[self.v + possible_moves[i][0],self.h + possible_moves[i][1]] = 9
+
+            if board_state[self.v + possible_moves[i][0],self.h + possible_moves[i][1]] == 0: #if square is empty
+                self.legal_moves.append((self.v + possible_moves[i][0],self.h + possible_moves[i][1]))
+                board_state[self.v + possible_moves[i][0],self.h + possible_moves[i][1]] = 9
+
+            # print(board_state[self.v + possible_moves[i][0],self.h + possible_moves[i][1]])
+            # print("\n")
+            # print(self.v + possible_moves[i][0])
+            # print(self.h + possible_moves[i][1])
+            i +=1
+        print(board_state)
         return self.legal_moves
 
 #Board class
@@ -149,7 +173,7 @@ class Board:
         #np.delete(self.board, [Peice.currentPosition()])
         self.board[Peice.current_position()]= 0
 
-        #Simulatniously updatez bit board 
+        #Simulatniously updates bit board 
         self.bit_board[Peice.current_position()] = 0
     
     # #Moves a given peice to a target position
@@ -159,24 +183,29 @@ class Board:
         self.remove_peice(Peice)
         self.add_peice(Peice, v, h)
 
+    def get_bit_board(self):
+        return self.bit_board
+
 play_board = Board() 
 
 pawn1 = Pawn(1) #White pawn    
 pawn2 = Pawn(1) #White pawn
 
-pawn3 = Pawn(-1) #Black pawn
-pawn4 = Pawn(-1) #Black pawn
+pawn3 = Pawn(1) #Black pawn
+pawn4 = Pawn(1) #Black pawn
 
 bishop1 = Bishop(1) #White bishop
+knight1 = Knight(1) #White knight
 
 play_board.add_peice(pawn2,5,3)
 play_board.add_peice(pawn1,6,2)
 play_board.add_peice(pawn4,6,4)
+play_board.add_peice(knight1, 4,5)
 
+#print(play_board.bit_board)
 
-print(play_board.bit_board)
-
-print(pawn2.get_legal_moves())
+# print(pawn2.get_legal_moves())
+print(knight1.get_legal_moves())
 
 
 # print(pawn1.get_legal_moves())

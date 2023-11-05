@@ -74,6 +74,7 @@ class Bishop(Peice):
         
         #board_state[search_pos[0],search_pos[1]] != self.COLOUR
         #up right
+        #
         search_pos = [self.v, self.h] #Peices current position, used as the start of the search
         while search_pos[0] <= 7 and search_pos[1] <= 7:
             if board_state[search_pos[0],search_pos[1]] == self.COLOUR: 

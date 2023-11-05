@@ -18,7 +18,7 @@ def initalize_game(FEN):
     char_list = list(FEN)
     row_index=0
     colum_index=0
-    
+
     for char in char_list:
         peice = None
         if char == "/":
@@ -52,6 +52,10 @@ def initalize_game(FEN):
             peice = copy.deepcopy(King(-1))
         if char =="P":
             peice = copy.deepcopy(Pawn(-1))
+
+            # for i in range (ord(char)):
+            #     play_board.board[i, row_index] =0
+        
         play_board.add_peice(peice,row_index,colum_index)
         colum_index += 1
         print(row_index)

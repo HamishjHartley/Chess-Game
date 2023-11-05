@@ -26,7 +26,7 @@ class Peice:
     #Returns the current location of the peice
     def current_position(self):
         return self.v, self.h
-    
+
 #Pawn class which is a child class of Peice
 class Pawn(Peice):
     def __init__(self, colour):
@@ -50,30 +50,50 @@ class Pawn(Peice):
         #elif (capture square RIGHT) has enemyPeice:
         #   self.legal_moves.append(square index)
         return self.legal_moves
-    
-    class Bishop(Peice):
-        def __init__(self, colour):
-            Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
-        def get_legal_moves(self):
-            #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
-            board_state = play_board.bit_board #Copies board state from bit board
+class Bishop(Peice):
+    def __init__(self, colour):
+        Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
-            search_pos = (self.v, self.h) #Peices current position, used as the start of the search
-            
+    def get_legal_moves(self):
+        #TODO: Fix board reference, not directly to object instance. Means it will be coupled 
+        board_state = play_board.bit_board #Copies board state from bit board
+        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        
+        #board_state[search_pos[0],search_pos[1]] != self.COLOUR
+        #up right
+        while search_pos[0] <= 7 and search_pos[1] <= 7:
+            self.legal_moves.append([search_pos[0], search_pos[1]])
+            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            search_pos[0] += 1
+            search_pos[1] += 1
 
-            #up right
-            while(board_state[search_pos] != None or board_state != self.COLOUR): #TODO: FIX: Currently adds peice's initial position to legal_moves 
-                self.legal_moves.append(search_pos)
-                search_pos[0] += 1
-                search_pos[1] += 1
-            
+            # print(search_pos[0])
+            # print(search_pos[1])
 
-            #down right
-            #up left
-            #down right
-            return self.legal_moves
+        #down right
+        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        while search_pos[0] >= 0 and search_pos[1] <= 7:
+            self.legal_moves.append([search_pos[0], search_pos[1]])
+            search_pos[0] -= 1
+            search_pos[1] += 1
 
+        #up left
+        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        while search_pos[0] <= 7 and search_pos[1] >= 0:
+            self.legal_moves.append([search_pos[0], search_pos[1]])
+            search_pos[0] += 1
+            search_pos[1] -= 1
+
+        #down left
+        search_pos = [self.v, self.h] #Peices current position, used as the start of the search
+        while search_pos[0] >= 0 and search_pos[1] >= 0:
+            self.legal_moves.append([search_pos[0], search_pos[1]])
+            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            search_pos[0] -= 1
+            search_pos[1] -= 1
+        
+        return self.legal_moves
 
 #Board class
 #is the controller class to which "Peices" are added, handles events/interaction's between peices
@@ -82,9 +102,8 @@ class Board:
     def __init__(self):
         self.board = np.zeros((8,8), dtype=Peice)
 
-        #"bit board" to hold the state of each square on the board for easier move/capture calculation
+        #"bit board" to hold the state of each square on the board for easier move/capture calculation, is 10 x 10 to have a NONE buffer for move generation
         self.bit_board = np.zeros((8,8), dtype=int)
-
 
     #Adds a peice to a position on the 8x8 board array defined by index (pos)
     #TODO: Throw exception if position reference out of bounds of board array
@@ -100,6 +119,9 @@ class Board:
     def remove_peice(self, Peice):
         #np.delete(self.board, [Peice.currentPosition()])
         self.board[Peice.current_position()]= 0
+
+        #Simulatniously updatez bit board 
+        self.bit_board[Peice.current_position()] = 0
     
     # #Moves a given peice to a target position
     #by removing from origional square and adding it to target square
@@ -112,14 +134,16 @@ play_board = Board()
 
 pawn1 = Pawn(1) #White pawn    
 pawn2 = Pawn(-1) #Black pawn
+bishop1 = Bishop(1) #White bishop
 
-play_board.add_peice(pawn1,1,4) #Add e2 pawn to board (WHITE)
+play_board.add_peice(pawn1,6,6) #Add e2 pawn to board (WHITE)
 play_board.add_peice(pawn2,6,3) #Add d7 pawn to board (BLACK)
+play_board.add_peice(bishop1, 2,4)
 
 print(play_board.bit_board)
 
-play_board.move_peice(pawn1,7,7)
-print(play_board.bit_board)
+print(bishop1.get_legal_moves())
+
 
 # print(pawn1.get_legal_moves())
 # print(pawn2.get_legal_moves())

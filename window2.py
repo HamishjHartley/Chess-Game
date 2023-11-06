@@ -4,7 +4,6 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QPen, QColor, QPixmap
 
-import main
 
 #Function inspired from
 # https://stackoverflow.com/questions/30230592/loading-all-images-using-imread-from-a-given-folder
@@ -30,17 +29,15 @@ class QS(QGraphicsScene):
     def __init__(self, parent=None):
         super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
-        peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
+        self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
 
 
-    def add_peice(self):
+    def add_peice(self,v ,h ,peice_type):
         p = QtCore.QPointF()
-        for i in range(col):
-            p = QtCore.QPointF(Setting.WIDTH*i, 0)
-            for j in range(row):
-                it = self.addPixmap(self.peice_icons[i])
-                it.setPos(p)
-                p += QtCore.QPointF(0, Setting.HEIGHT)
+        p = QtCore.QPointF(Setting.WIDTH*h, Setting.HEIGHT*v)
+        it = self.addPixmap(self.peice_icons[peice_type])
+        it.setPos(p)
+        #p += QtCore.QPointF(0, Setting.HEIGHT)
 
 
     def drawBackground(self, painter, rect):
@@ -66,6 +63,10 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         scene = QS(self)
+        scene.add_peice(2,3,"w_bishop.png")
+        scene.add_peice(5,4,"b_knight.png")
+        
+        #scene.add_peice()
         view = QV(scene)
         self.setCentralWidget(view)
 

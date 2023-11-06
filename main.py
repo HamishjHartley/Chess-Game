@@ -11,6 +11,8 @@ from King import King
 
 from Board import Board
 
+from window2 import QS
+
 play_board = Board()
 
 #Initializes game based on FEN code
@@ -70,6 +72,8 @@ def initalize_from_fen(FEN):
 initalize_from_fen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R")
 
 print(play_board.get_bit_board())
+
+QS.add_peice(2,2,"w_bishop.png")
 
 # # pawn1 = Pawn(1)    
 # # pawn2 = Pawn(1) 

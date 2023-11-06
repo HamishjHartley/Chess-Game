@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView, QGraphicsRectItem, QApplication
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QPen, QColor, QPixmap
 from PyQt5.QtCore import Qt
 
@@ -13,6 +13,9 @@ scene = QGraphicsScene(0, 0, 500, 500)
 
 image = QPixmap("Chess_rlt60.png")
 
+
+
+
 # Draw a rectangle item, setting the dimensions.
 #row 1
 a1 = QGraphicsRectItem(0,0,50,50)
@@ -23,6 +26,8 @@ e1 = QGraphicsRectItem(200,0,50,50)
 f1 = QGraphicsRectItem(250,0,50,50)
 g1 = QGraphicsRectItem(300,0,50,50)
 h1 = QGraphicsRectItem(350,0,50,50)
+
+
 
 #row2
 b2 = QGraphicsRectItem(50,50,50,50)
@@ -96,86 +101,86 @@ h8 = QGraphicsRectItem(350,350,50,50)
 
 
 
-# Set the origin (position) of the rectangle in the scene.
-#row 1
-a1.setPos(0,0)
-b1.setPos(0,0)
-c1.setPos(0,0)
-d1.setPos(0,0)
-e1.setPos(0,0)
-f1.setPos(0,0)
-g1.setPos(0,0)
-h1.setPos(0,0)
+# # Set the origin (position) of the rectangle in the scene.
+# #row 1
+# a1.setPos(0,0)
+# b1.setPos(0,0)
+# c1.setPos(0,0)
+# d1.setPos(0,0)
+# e1.setPos(0,0)
+# f1.setPos(0,0)
+# g1.setPos(0,0)
+# h1.setPos(0,0)
 
-#row 2
-a2.setPos(0,0)
-b2.setPos(0,0)
-c2.setPos(0,0)
-d2.setPos(0,0)
-e2.setPos(0,0)
-f2.setPos(0,0)
-g2.setPos(0,0)
-h2.setPos(0,0)
+# #row 2
+# a2.setPos(0,0)
+# b2.setPos(0,0)
+# c2.setPos(0,0)
+# d2.setPos(0,0)
+# e2.setPos(0,0)
+# f2.setPos(0,0)
+# g2.setPos(0,0)
+# h2.setPos(0,0)
 
-#row 3
-a3.setPos(0,0)
-b3.setPos(0,0)
-c3.setPos(0,0)
-d3.setPos(0,0)
-e3.setPos(0,0)
-f3.setPos(0,0)
-g3.setPos(0,0)
-h3.setPos(0,0)
+# #row 3
+# a3.setPos(0,0)
+# b3.setPos(0,0)
+# c3.setPos(0,0)
+# d3.setPos(0,0)
+# e3.setPos(0,0)
+# f3.setPos(0,0)
+# g3.setPos(0,0)
+# h3.setPos(0,0)
 
-#row 4
-a4.setPos(0,0)
-b4.setPos(0,0)
-c4.setPos(0,0)
-d4.setPos(0,0)
-e4.setPos(0,0)
-f4.setPos(0,0)
-g4.setPos(0,0)
-h4.setPos(0,0)
+# #row 4
+# a4.setPos(0,0)
+# b4.setPos(0,0)
+# c4.setPos(0,0)
+# d4.setPos(0,0)
+# e4.setPos(0,0)
+# f4.setPos(0,0)
+# g4.setPos(0,0)
+# h4.setPos(0,0)
 
-#row 5
-a5.setPos(0,0)
-b5.setPos(0,0)
-c5.setPos(0,0)
-d5.setPos(0,0)
-e5.setPos(0,0)
-f5.setPos(0,0)
-g5.setPos(0,0)
-h5.setPos(0,0)
+# #row 5
+# a5.setPos(0,0)
+# b5.setPos(0,0)
+# c5.setPos(0,0)
+# d5.setPos(0,0)
+# e5.setPos(0,0)
+# f5.setPos(0,0)
+# g5.setPos(0,0)
+# h5.setPos(0,0)
 
-#row 6
-a6.setPos(0,0)
-b6.setPos(0,0)
-c6.setPos(0,0)
-d6.setPos(0,0)
-e6.setPos(0,0)
-f6.setPos(0,0)
-g6.setPos(0,0)
-h6.setPos(0,0)
+# #row 6
+# a6.setPos(0,0)
+# b6.setPos(0,0)
+# c6.setPos(0,0)
+# d6.setPos(0,0)
+# e6.setPos(0,0)
+# f6.setPos(0,0)
+# g6.setPos(0,0)
+# h6.setPos(0,0)
 
-#row 7
-a7.setPos(0,0)
-b7.setPos(0,0)
-c7.setPos(0,0)
-d7.setPos(0,0)
-e7.setPos(0,0)
-f7.setPos(0,0)
-g7.setPos(0,0)
-h7.setPos(0,0)
+# #row 7
+# a7.setPos(0,0)
+# b7.setPos(0,0)
+# c7.setPos(0,0)
+# d7.setPos(0,0)
+# e7.setPos(0,0)
+# f7.setPos(0,0)
+# g7.setPos(0,0)
+# h7.setPos(0,0)
 
-#row 8
-a8.setPos(0,0)
-b8.setPos(0,0)
-c8.setPos(0,0)
-d8.setPos(0,0)
-e8.setPos(0,0)
-f8.setPos(0,0)
-g8.setPos(0,0)
-h8.setPos(0,0)
+# #row 8
+# a8.setPos(0,0)
+# b8.setPos(0,0)
+# c8.setPos(0,0)
+# d8.setPos(0,0)
+# e8.setPos(0,0)
+# f8.setPos(0,0)
+# g8.setPos(0,0)
+# h8.setPos(0,0)
 
 # Define the brush (fill).
 

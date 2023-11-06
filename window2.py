@@ -4,49 +4,56 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QPen, QColor, QPixmap
 
+import main
+
 #Function inspired from
 # https://stackoverflow.com/questions/30230592/loading-all-images-using-imread-from-a-given-folder
+#Loads an image dictionary which can be accessed through the icon filenames
 def load_images_from_folder(folder):
-    images = []
+    images = {}
     for filename in os.listdir(folder):
         img = QPixmap(os.path.join(folder,filename))
         if img is not None:
-            images.append(img)
+            images[filename] = img
+    print(images)
     return images
 
-#Sets window dimensions, grid size
+#Sets window dimensions
 class Setting:
     WIDTH = 80
     HEIGHT = 80
 
-X, Y = 8, 8
-
+#grid size
+col, row = 8, 8
 
 class QS(QGraphicsScene):
     def __init__(self, parent=None):
-        super(QS, self).__init__(QtCore.QRectF(0, 0, X * Setting.WIDTH, Y * Setting.HEIGHT), parent)
+        super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
-        peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/gui/icons")
+        peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
 
+
+    def add_peice(self):
         p = QtCore.QPointF()
-        for i in range(X):
+        for i in range(col):
             p = QtCore.QPointF(Setting.WIDTH*i, 0)
-            for j in range(Y):
-                it = self.addPixmap(peice_icons[i])
+            for j in range(row):
+                it = self.addPixmap(self.peice_icons[i])
                 it.setPos(p)
                 p += QtCore.QPointF(0, Setting.HEIGHT)
 
+
     def drawBackground(self, painter, rect):
-        width = X * Setting.WIDTH
-        height = Y * Setting.HEIGHT
+        width = col * Setting.WIDTH
+        height = row * Setting.HEIGHT
 
         l = QtCore.QLineF(QtCore.QPointF(0, 0), QtCore.QPointF(width, 0))
-        for _ in range(Y+1):
+        for _ in range(row+1):
             painter.drawLine(l)
             l.translate(0, Setting.HEIGHT)
 
         l = QtCore.QLineF(QtCore.QPointF(0, 0), QtCore.QPointF(0, height))
-        for _ in range(X+1):
+        for _ in range(col+1):
             painter.drawLine(l)
             l.translate(Setting.WIDTH, 0)
 

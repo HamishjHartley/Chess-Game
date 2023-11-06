@@ -29,14 +29,13 @@ class QS(QGraphicsScene):
         super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
         self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
-
+        
 
     def add_peice(self,v ,h ,peice_type):
         p = QtCore.QPointF()
         p = QtCore.QPointF(Setting.WIDTH*h, Setting.HEIGHT*v)
         it = self.addPixmap(self.peice_icons[peice_type])
         it.setPos(p)
-        #p += QtCore.QPointF(0, Setting.HEIGHT)
 
 
     def drawBackground(self, painter, rect):
@@ -62,16 +61,16 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.scene = QS(self)
-        #scene.add_peice(2,3,"w_bishop.png")
-        #scene.add_peice(2,1,"b_knight.png")
+
+        self.added_peices =[] #to keep track of added peices to GUI
 
         view = QV(self.scene)
         self.setCentralWidget(view)
 
     def add_peice(self,v,h, peice_type):
-        self.scene.add_peice(v,h, peice_type)
+        self.scene.add_peice(v,h, peice_type)    
+        self.added_peices.append([v,h,peice_type])
 
-        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

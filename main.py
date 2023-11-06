@@ -47,10 +47,9 @@ def initalize_from_fen(FEN):
             #print(char + " spaces added " + str(row_index) +" " + str(colum_index))
             colum_index += int(char)
             continue
-
         if char == "R":
             peice = copy.deepcopy(Rook(1)) 
-            w.add_peice(row_index,colum_index,"w_rook.png")
+            w.add_peice(row_index,colum_index,"w_rook.png") 
         if char =="N":
             peice = copy.deepcopy(Knight(1))
             w.add_peice(row_index,colum_index,"w_knight.png")
@@ -92,9 +91,16 @@ def initalize_from_fen(FEN):
     #print(play_board.board)
     return FEN
 
+#Move a given peice to a target position [v,h]
+def move_peice(Peice, v, h):
+    play_board.move_peice(Peice,v,h)
+
+    
+
 initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
+print(w.added_peices)
+
+
 
 w.show()
 sys.exit(app.exec_())
-
-

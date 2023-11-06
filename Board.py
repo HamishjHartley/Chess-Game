@@ -33,7 +33,6 @@ class Board:
     # #Moves a given peice to a target position
     #by removing from original square and adding it to target square
     def move_peice(self, Peice, v, h):
-        
         self.remove_peice(Peice)
         self.add_peice(Peice, v, h)
 

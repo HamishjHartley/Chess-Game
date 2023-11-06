@@ -11,7 +11,15 @@ from King import King
 
 from Board import Board
 
-from window2 import QS
+#GUI inports
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QBrush, QPen, QColor, QPixmap
+import sys
+import os
+
+from window2 import MainWindow
+
 
 play_board = Board()
 
@@ -29,11 +37,11 @@ def initalize_from_fen(FEN):
         if char == "/":
             row_index +=1
             colum_index =0
-            print("New line")
+            #print("New line")
             continue # Go to next iteration and skip following code
         if char.isdigit() == True:
             play_board.board[row_index,colum_index : colum_index+ int(char):1] = 0
-            print(char + " spaces added " + str(row_index) +" " + str(colum_index))
+            #print(char + " spaces added " + str(row_index) +" " + str(colum_index))
             colum_index += int(char)
             continue
 
@@ -63,7 +71,7 @@ def initalize_from_fen(FEN):
             peice = copy.deepcopy(Pawn(-1))
 
         play_board.add_peice(peice,row_index,colum_index)
-        print( str(peice.__class__) + " added "+ str(row_index) + " " + str(colum_index))
+        #print( str(peice.__class__) + " added "+ str(row_index) + " " + str(colum_index))
         colum_index += 1
         #print(row_index)
     #print(play_board.board)
@@ -71,41 +79,12 @@ def initalize_from_fen(FEN):
 
 initalize_from_fen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R")
 
-print(play_board.get_bit_board())
 
-QS.add_peice(2,2,"w_bishop.png")
-
-# # pawn1 = Pawn(1)    
-# # pawn2 = Pawn(1) 
-
-# # pawn3 = Pawn(1) 
-# # pawn4 = Pawn(1) 
-
-# bishop1 = Bishop(1) 
-# # knight1 = Knight(1) 
-
-# rook1 = Rook(1)
-# queen1 = Queen(1)
-# king1 = King(1)
-
-# # play_board.add_peice(pawn2,5,3)
-# # play_board.add_peice(pawn1,6,2)
-# # play_board.add_peice(pawn4,6,4)
-# # play_board.add_peice(knight1,4,5)
-# play_board.add_peice(bishop1,5,4)
-# play_board.add_peice(rook1, 2,4)
-# play_board.add_peice(queen1, 3,3)
-# play_board.add_peice(king1,5,5)
-
-# #print(play_board.bit_board)
-
-# # print(pawn2.get_legal_moves())
-# #print(play_board.bit_board)
-# #print(rook1.get_legal_moves(play_board.bit_board))
-# #print(queen1.get_legal_moves(play_board.bit_board))
-# print(king1.get_legal_moves(play_board.bit_board))
+#https://stackoverflow.com/questions/419163/what-does-if-name-main-do Check this for an explanation
+#if __name__ == "__main__":
 
 
-
-# # print(pawn1.get_legal_moves())
-# # print(pawn2.get_legal_moves())
+app = QApplication(sys.argv)
+w = MainWindow()
+w.show()
+sys.exit(app.exec_())

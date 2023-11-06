@@ -14,7 +14,6 @@ def load_images_from_folder(folder):
         img = QPixmap(os.path.join(folder,filename))
         if img is not None:
             images[filename] = img
-    print(images)
     return images
 
 #Sets window dimensions
@@ -63,13 +62,16 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         scene = QS(self)
-        scene.add_peice(2,3,"w_bishop.png")
-        scene.add_peice(5,4,"b_knight.png")
-        
-        #scene.add_peice()
+        #scene.add_peice(2,3,"w_bishop.png")
+        #scene.add_peice(2,1,"b_knight.png")
+
         view = QV(scene)
         self.setCentralWidget(view)
 
+    def add_peice(self,v,h, peice_type):
+        self.scene.add_peice(v,h, peice_type)
+
+        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

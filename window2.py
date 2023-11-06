@@ -61,11 +61,11 @@ class QV(QGraphicsView):
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        scene = QS(self)
+        self.scene = QS(self)
         #scene.add_peice(2,3,"w_bishop.png")
         #scene.add_peice(2,1,"b_knight.png")
 
-        view = QV(scene)
+        view = QV(self.scene)
         self.setCentralWidget(view)
 
     def add_peice(self,v,h, peice_type):

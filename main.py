@@ -20,8 +20,11 @@ import os
 
 from window2 import MainWindow
 
-
 play_board = Board()
+#https://stackoverflow.com/questions/419163/what-does-if-name-main-do Check this for an explanation
+#if __name__ == "__main__":
+app = QApplication(sys.argv)
+w = MainWindow()
 
 #Initializes game based on FEN code
 def initalize_from_fen(FEN):
@@ -47,28 +50,40 @@ def initalize_from_fen(FEN):
 
         if char == "R":
             peice = copy.deepcopy(Rook(1)) 
+            w.add_peice(row_index,colum_index,"w_rook.png")
         if char =="N":
             peice = copy.deepcopy(Knight(1))
+            w.add_peice(row_index,colum_index,"w_knight.png")
         if char == "B":
             peice = copy.deepcopy(Bishop(1))
+            w.add_peice(row_index,colum_index,"w_bishop.png")
         if char =="Q":
             peice = copy.deepcopy(Queen(1))
+            w.add_peice(row_index,colum_index,"w_queen.png")
         if char =="K":
             peice = copy.deepcopy(King(1))
+            w.add_peice(row_index,colum_index,"w_king.png")
         if char =="P":
             peice = copy.deepcopy(Pawn(1))
+            w.add_peice(row_index,colum_index,"w_pawn.png")
         if char == "r":
             peice = copy.deepcopy(Rook(-1)) 
+            w.add_peice(row_index,colum_index,"b_rook.png")
         if char =="n":
             peice = copy.deepcopy(Knight(-1))
+            w.add_peice(row_index,colum_index,"b_knight.png")
         if char == "b":
             peice = copy.deepcopy(Bishop(-1))
+            w.add_peice(row_index,colum_index,"b_bishop.png")
         if char =="q":
             peice = copy.deepcopy(Queen(-1))
+            w.add_peice(row_index,colum_index,"b_queen.png")
         if char =="k":
             peice = copy.deepcopy(King(-1))
+            w.add_peice(row_index,colum_index,"b_king.png")
         if char =="p":
             peice = copy.deepcopy(Pawn(-1))
+            w.add_peice(row_index,colum_index,"b_pawn.png")
 
         play_board.add_peice(peice,row_index,colum_index)
         #print( str(peice.__class__) + " added "+ str(row_index) + " " + str(colum_index))
@@ -77,14 +92,9 @@ def initalize_from_fen(FEN):
     #print(play_board.board)
     return FEN
 
-initalize_from_fen("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R")
+initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
 
-
-#https://stackoverflow.com/questions/419163/what-does-if-name-main-do Check this for an explanation
-#if __name__ == "__main__":
-
-
-app = QApplication(sys.argv)
-w = MainWindow()
 w.show()
 sys.exit(app.exec_())
+
+

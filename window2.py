@@ -37,6 +37,9 @@ class QS(QGraphicsScene):
         it = self.addPixmap(self.peice_icons[peice_type])
         it.setPos(p)
 
+    #TODO: Implement remove peice function which removes Pixmap from given [v,h]
+    def remove_peice(self,v,h):
+        pass
 
     def drawBackground(self, painter, rect):
         width = col * Setting.WIDTH
@@ -62,14 +65,17 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
         self.scene = QS(self)
 
-        self.added_peices =[] #to keep track of added peices to GUI
+        self.added_peices ={} #Dictionary to keep track of added peices to GUI
 
         view = QV(self.scene)
         self.setCentralWidget(view)
 
     def add_peice(self,v,h, peice_type):
-        self.scene.add_peice(v,h, peice_type)    
-        self.added_peices.append([v,h,peice_type])
+        self.scene.add_peice(v,h, peice_type)   
+        self.added_peices[v,h] = peice_type
+        #self.added_peices.append([v,h,peice_type])
+
+
 
 
 if __name__ == "__main__":

@@ -21,8 +21,7 @@ import os
 from window2 import MainWindow
 
 play_board = Board()
-#https://stackoverflow.com/questions/419163/what-does-if-name-main-do Check this for an explanation
-#if __name__ == "__main__":
+
 app = QApplication(sys.argv)
 w = MainWindow()
 
@@ -85,22 +84,18 @@ def initalize_from_fen(FEN):
             w.add_peice(row_index,colum_index,"b_pawn.png")
 
         play_board.add_peice(peice,row_index,colum_index)
-        #print( str(peice.__class__) + " added "+ str(row_index) + " " + str(colum_index))
         colum_index += 1
-        #print(row_index)
-    #print(play_board.board)
     return FEN
 
-#Move a given peice to a target position [v,h]
-def move_peice(Peice, v, h):
-    play_board.move_peice(Peice,v,h)
 
-    
+#Move a given peice to a target position [v,h], links GUI with backend 
+#TODO: change FEN implementation so each peice object has a unique identfier
+def move_peice(Peice, v,h):
+    #w.remove_peice()
+    w.add_peice(v, h,str(w.added_peices[Peice.current_position()])) #Moves peice in GUI
+    play_board.move_peice(Peice,v,h) #Moves peice in Backend
 
 initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
-print(w.added_peices)
-
-
 
 w.show()
 sys.exit(app.exec_())

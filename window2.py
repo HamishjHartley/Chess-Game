@@ -34,23 +34,18 @@ class QS(QGraphicsScene):
     def add_peice(self,v: int, h:int ,peice_type: str):
         p = QtCore.QPointF(Setting.WIDTH*h, Setting.HEIGHT*v)
         self.added_peices[v,h] = self.addPixmap(self.peice_icons[peice_type]) #maps [v,h] board co-ordinates 
-
         self.added_peices[v,h].setPos(p) 
+        
 
     def remove_peice(self,v: int, h:int):
-        self.removeItem(self.added_peices[v,h])
+        self.removeItem(self.added_peices[v,h]) 
         print("Removed peice")
 
     #TODO: Implement remove peice function which removes Pixmap from given [v,h]
     def move_peice(self,v: int, h: int, target_v:int, target_h:int):
         p = QtCore.QPointF(Setting.WIDTH*target_h, Setting.HEIGHT*target_v)
-        
-        self.added_peices[v,h].setPos(p)
-        
-        self.added_peices[target_v,target_h] = self.added_peices[v,h]
-
-
-
+        self.added_peices[v,h].setPos(p) #Moves peice 
+        self.added_peices[target_v,target_h] = self.added_peices[v,h] #Updates the location key for moved peice
 
     def drawBackground(self, painter, rect):
         width = col * Setting.WIDTH
@@ -66,10 +61,8 @@ class QS(QGraphicsScene):
             painter.drawLine(l)
             l.translate(Setting.WIDTH, 0)
 
-
 class QV(QGraphicsView):
     pass
-
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -88,8 +81,6 @@ class MainWindow(QMainWindow):
 
     def remove_peice(self,v: int, h:int):
         self.scene.remove_peice(v,h)
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

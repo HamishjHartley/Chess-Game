@@ -37,10 +37,17 @@ class QS(QGraphicsScene):
 
         self.added_peices[v,h].setPos(p) 
 
+    def remove_peice(self,v: int, h:int):
+        self.removeItem(self.added_peices[v,h])
+        print("Removed peice")
+
     #TODO: Implement remove peice function which removes Pixmap from given [v,h]
     def move_peice(self,v: int, h: int, target_v:int, target_h:int):
         p = QtCore.QPointF(Setting.WIDTH*target_h, Setting.HEIGHT*target_v)
+        
         self.added_peices[v,h].setPos(p)
+        
+        self.added_peices[target_v,target_h] = self.added_peices[v,h]
 
 
 
@@ -78,6 +85,9 @@ class MainWindow(QMainWindow):
 
     def move_peice(self,v:int,h:int, target_v:int, target_h:int):
         self.scene.move_peice(v,h,target_v,target_h)
+
+    def remove_peice(self,v: int, h:int):
+        self.scene.remove_peice(v,h)
 
 
 

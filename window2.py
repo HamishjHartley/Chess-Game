@@ -31,14 +31,14 @@ class QS(QGraphicsScene):
         self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
         self.added_peices ={} #Dictionary to keep track of added peices to GUI
 
-    def add_peice(self,v ,h ,peice_type):
+    def add_peice(self,v: int, h:int ,peice_type: str):
         p = QtCore.QPointF(Setting.WIDTH*h, Setting.HEIGHT*v)
         self.added_peices[v,h] = self.addPixmap(self.peice_icons[peice_type]) #maps [v,h] board co-ordinates 
 
         self.added_peices[v,h].setPos(p) 
 
     #TODO: Implement remove peice function which removes Pixmap from given [v,h]
-    def move_peice(self,v,h, target_v, target_h):
+    def move_peice(self,v: int, h: int, target_v:int, target_h:int):
         p = QtCore.QPointF(Setting.WIDTH*target_h, Setting.HEIGHT*target_v)
         self.added_peices[v,h].setPos(p)
 
@@ -72,11 +72,11 @@ class MainWindow(QMainWindow):
         view = QV(self.scene)
         self.setCentralWidget(view)
 
-    def add_peice(self,v,h, peice_type):
+    def add_peice(self,v:int,h:int, peice_type:str):
         self.scene.add_peice(v,h, peice_type)   
         #self.added_peices.append([v,h,peice_type])
 
-    def move_peice(self,v,h, target_v, target_h):
+    def move_peice(self,v:int,h:int, target_v:int, target_h:int):
         self.scene.move_peice(v,h,target_v,target_h)
 
 

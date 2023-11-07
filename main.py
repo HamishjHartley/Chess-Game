@@ -26,7 +26,7 @@ app = QApplication(sys.argv)
 w = MainWindow()
 
 #Initializes game based on FEN code
-def initalize_from_fen(FEN):
+def initalize_from_fen(FEN:str):
     #Reverse FEN string
     fen = FEN [::-1]
     char_list = list(fen)

@@ -4,7 +4,7 @@ from Board import Board
 
 #Bishop class which is a child class of Peice
 class Bishop(Peice):
-    def __init__(self, colour):
+    def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
 

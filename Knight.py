@@ -4,7 +4,7 @@ from Board import Board
 
 #Knight class which is a child class of Peice
 class Knight(Peice):
-    def __init__(self, colour):
+    def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
 
     def get_legal_moves(self,bit_board):

@@ -1,9 +1,9 @@
 import sys
 import os
 from PyQt5 import QtCore, QtGui
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QPen, QColor, QPixmap
-
 
 #Function inspired from
 # https://stackoverflow.com/questions/30230592/loading-all-images-using-imread-from-a-given-folder
@@ -15,6 +15,15 @@ def load_images_from_folder(folder):
         if img is not None:
             images[filename] = img
     return images
+
+#Extending the QLabel class so that peices can emmit signal when clicked
+class ClickLabel(QtWidgets.QLabel):
+    clicked = QtCore.pyqtSignal()
+
+    def mousePressEvent(self, event):
+        self.clicked.emit()
+        QtWidgets.QLabel.mousePressEvent(self, event)
+
 
 #Sets window dimensions
 class Setting:
@@ -28,15 +37,21 @@ class QS(QGraphicsScene):
     def __init__(self, parent=None):
         super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
-        self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
+        self.peice_icons = load_images_from_folder("C:/Users/theha/Desktop/Chess-Game-main/icons")
         self.added_peices ={} #Dictionary to keep track of added peices to GUI
 
-    def add_peice(self,v: int, h:int ,peice_type: str):
-        p = QtCore.QPointF(Setting.WIDTH*h, Setting.HEIGHT*v)
-        self.added_peices[v,h] = self.addPixmap(self.peice_icons[peice_type]) #maps [v,h] board co-ordinates 
-        self.added_peices[v,h].setPos(p) 
-        
+    def create_peice(self,v: int, h:int ,peice_type: str):
+        label = ClickLabel() #Creating an instance of the custom label class
+        pixmap = self.peice_icons[peice_type]
+        label.setPixmap(pixmap)
+        label.move(10 + 80*h,10 + 80*v) #Set position of Piece on board (Label)
+        #label.setAlignment(QtCore.Qt.AlignHCenter)
+        label.clicked.connect(self.peice_click)
+        return label
 
+    def peice_click(self):
+        print("Clicked")
+        
     def remove_peice(self,v: int, h:int):
         self.removeItem(self.added_peices[v,h]) 
         print("Removed peice")
@@ -68,9 +83,11 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.scene = QS(self)
-
         view = QV(self.scene)
         self.setCentralWidget(view)
+
+        label = self.scene.create_peice(7,7,"b_bishop.png")
+        self.scene.addWidget(label)
 
     def add_peice(self,v:int,h:int, peice_type:str):
         self.scene.add_peice(v,h, peice_type)   
@@ -85,5 +102,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = MainWindow()
+
     w.show()
     sys.exit(app.exec_())

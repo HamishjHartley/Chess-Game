@@ -5,6 +5,8 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QPen, QColor, QPixmap
 
+from Peice import Peice
+
 #Function inspired from
 # https://stackoverflow.com/questions/30230592/loading-all-images-using-imread-from-a-given-folder
 #Loads an image dictionary which can be accessed through the icon filenames
@@ -41,11 +43,13 @@ class QS(QGraphicsScene):
 
     #Creates a piece, with position [v,h] and type
     def create_peice(self,v: int, h:int ,peice_type: str):
+        self.added_peices[v,h] = peice_type #keep track of added peices to GUI
+
         label = ClickLabel() #Creating an instance of the custom label class
         pixmap = self.peice_icons[peice_type]
         label.setPixmap(pixmap)
         label.move(10 + 80*h,10 + 80*v) #Set position of Piece on board (Label)
-        label.clicked.connect(self.highlight_square)
+        label.clicked.connect(self.peice_click)
         return label
 
     def peice_click(self):
@@ -62,16 +66,20 @@ class QS(QGraphicsScene):
         self.added_peices[v,h].setPos(p) #Moves peice 
         self.added_peices[target_v,target_h] = self.added_peices[v,h] #Updates the location key for moved peice
 
+    #TODO:Needs work
+    def show_movement_squares(self, peice :Peice):
+        moves = Peice.get_legal_moves() #Get list of legal moves
+        for move in moves:
+            self.highlight_square(move)
+        pass
+
     #Renders a highlighted square at a set co-ordinate [v,h]
-    def highlight_square(self):
-        h =5
-        v=5
+    def highlight_square(self,v:int,h:int):
         self.square = QtCore.QRectF(10+80*h,10+80*v,80,80)
         self.addRect(self.square,
                      pen=QtGui.QPen(),
                      brush=QtGui.QBrush())
         
-
     # def drawBackground(self, painter, rect):
     #     width = col * Setting.WIDTH
     #     height = row * Setting.HEIGHT

@@ -24,7 +24,6 @@ class ClickLabel(QtWidgets.QLabel):
         self.clicked.emit()
         QtWidgets.QLabel.mousePressEvent(self, event)
 
-
 #Sets window dimensions
 class Setting:
     WIDTH = 80
@@ -37,21 +36,22 @@ class QS(QGraphicsScene):
     def __init__(self, parent=None):
         super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
-        self.peice_icons = load_images_from_folder("C:/Users/theha/Desktop/Chess-Game-main/icons")
+        self.peice_icons = load_images_from_folder("C:/Users/theha/Documents/Github/Chess-Game/icons")
         self.added_peices ={} #Dictionary to keep track of added peices to GUI
 
+    #Creates a piece, with position [v,h] and type
     def create_peice(self,v: int, h:int ,peice_type: str):
         label = ClickLabel() #Creating an instance of the custom label class
         pixmap = self.peice_icons[peice_type]
         label.setPixmap(pixmap)
         label.move(10 + 80*h,10 + 80*v) #Set position of Piece on board (Label)
-        #label.setAlignment(QtCore.Qt.AlignHCenter)
-        label.clicked.connect(self.peice_click)
+        label.clicked.connect(self.highlight_square)
         return label
 
     def peice_click(self):
         print("Clicked")
         
+    #Removes peice from Board
     def remove_peice(self,v: int, h:int):
         self.removeItem(self.added_peices[v,h]) 
         print("Removed peice")
@@ -62,19 +62,29 @@ class QS(QGraphicsScene):
         self.added_peices[v,h].setPos(p) #Moves peice 
         self.added_peices[target_v,target_h] = self.added_peices[v,h] #Updates the location key for moved peice
 
-    def drawBackground(self, painter, rect):
-        width = col * Setting.WIDTH
-        height = row * Setting.HEIGHT
+    #Renders a highlighted square at a set co-ordinate [v,h]
+    def highlight_square(self):
+        h =5
+        v=5
+        self.square = QtCore.QRectF(10+80*h,10+80*v,80,80)
+        self.addRect(self.square,
+                     pen=QtGui.QPen(),
+                     brush=QtGui.QBrush())
+        
 
-        l = QtCore.QLineF(QtCore.QPointF(0, 0), QtCore.QPointF(width, 0))
-        for _ in range(row+1):
-            painter.drawLine(l)
-            l.translate(0, Setting.HEIGHT)
+    # def drawBackground(self, painter, rect):
+    #     width = col * Setting.WIDTH
+    #     height = row * Setting.HEIGHT
 
-        l = QtCore.QLineF(QtCore.QPointF(0, 0), QtCore.QPointF(0, height))
-        for _ in range(col+1):
-            painter.drawLine(l)
-            l.translate(Setting.WIDTH, 0)
+    #     l = QtCore.QLineF(QtCore.QPointF(0, 0), QtCore.QPointF(width, 0))
+    #     for _ in range(row+1):
+    #         painter.drawLine(l)
+    #         l.translate(0, Setting.HEIGHT)
+
+    #     l = QtCore.QLineF(QtCore.QPointF(0, 0), QtCore.QPointF(0, height))
+    #     for _ in range(col+1):
+    #         painter.drawLine(l)
+    #         l.translate(Setting.WIDTH, 0)
 
 class QV(QGraphicsView):
     pass
@@ -86,12 +96,9 @@ class MainWindow(QMainWindow):
         view = QV(self.scene)
         self.setCentralWidget(view)
 
-        label = self.scene.create_peice(7,7,"b_bishop.png")
-        self.scene.addWidget(label)
-
     def add_peice(self,v:int,h:int, peice_type:str):
-        self.scene.add_peice(v,h, peice_type)   
-        #self.added_peices.append([v,h,peice_type])
+        peice_label = self.scene.create_peice(v,h, peice_type)   
+        self.scene.addWidget(peice_label)
 
     def move_peice(self,v:int,h:int, target_v:int, target_h:int):
         self.scene.move_peice(v,h,target_v,target_h)
@@ -102,6 +109,7 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = MainWindow()
+    w.add_peice(3,4,"w_bishop.png")
 
     w.show()
     sys.exit(app.exec_())

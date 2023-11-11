@@ -1,11 +1,11 @@
 import numpy as np
 from Peice import Peice
-from Board import Board
 
 #Pawn class which is a child class of Peice
 class Pawn(Peice):
-    def __init__(self, colour):
+    def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
+        self.file_name = ["b_pawn.png", "w_pawn.png"]
 
     #Returns a list of legal move(s) specific to a Pawn peice
     def get_legal_moves(self, bit_board):

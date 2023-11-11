@@ -3,7 +3,8 @@ from Peice import Peice
 class Rook(Peice):
     def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
-    
+        self.file_name = ["b_rook.png", "w_rook.png"]
+        
     def get_legal_moves(self, bit_board):
         board_state = bit_board
         origin_pos = [self.v, self.h]

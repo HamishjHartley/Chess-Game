@@ -6,6 +6,7 @@ from Board import Board
 class Knight(Peice):
     def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
+        self.file_name = ["b_knight.png", "w_kight.png"]
 
     def get_legal_moves(self,bit_board):
         possible_moves =[(1,-2), (2,-1),(2,1),(1,2),(-1,-2),(-2,-1),(-2,1),(-1,2)] #8 Possible squares knight can hop to, relative to current square

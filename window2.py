@@ -52,7 +52,8 @@ class QS(QGraphicsScene):
     def __init__(self, parent=None):
         super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
-        self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
+        self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Documents/GitHub/Chess-Game/icons")
+
         self.added_peices ={} #Dictionary to keep track of added peices to GUI
         self.rendered_moves= []
 

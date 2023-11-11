@@ -99,9 +99,6 @@ class QS(QGraphicsScene):
             print("Rendered move")
 
 
-
-        
-
     def drawBackground(self, painter, rect):
         width = col * Setting.WIDTH
         height = row * Setting.HEIGHT

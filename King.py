@@ -5,7 +5,7 @@ from Peice import Peice
 class King(Peice):
     def __init__(self, colour):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
-
+        self.file_name = ["b_king.png", "w_king.png"]
     def get_legal_moves(self,bit_board):
         possible_moves =[(1,-1), (1,0),(1,1),(0,1),(-1,1),(-1,0),(-1,-1),(0,-1)] #8 Possible squares king can move to, relative to current square
 

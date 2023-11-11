@@ -48,48 +48,48 @@ def initalize_from_fen(FEN:str):
             continue
         if char == "R":
             peice = copy.deepcopy(Rook(1)) 
-            w.add_peice(row_index,colum_index,"w_rook.png") 
+            w.add_peice(row_index,colum_index, peice) 
         if char =="N":
             peice = copy.deepcopy(Knight(1))
-            w.add_peice(row_index,colum_index,"w_knight.png")
+            w.add_peice(row_index,colum_index, peice)
         if char == "B":
             peice = copy.deepcopy(Bishop(1))
-            w.add_peice(row_index,colum_index,"w_bishop.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="Q":
             peice = copy.deepcopy(Queen(1))
-            w.add_peice(row_index,colum_index,"w_queen.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="K":
             peice = copy.deepcopy(King(1))
-            w.add_peice(row_index,colum_index,"w_king.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="P":
             peice = copy.deepcopy(Pawn(1))
-            w.add_peice(row_index,colum_index,"w_pawn.png")
+            w.add_peice(row_index,colum_index,peice)
         if char == "r":
             peice = copy.deepcopy(Rook(-1)) 
-            w.add_peice(row_index,colum_index,"b_rook.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="n":
             peice = copy.deepcopy(Knight(-1))
-            w.add_peice(row_index,colum_index,"b_knight.png")
+            w.add_peice(row_index,colum_index,peice)
         if char == "b":
             peice = copy.deepcopy(Bishop(-1))
-            w.add_peice(row_index,colum_index,"b_bishop.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="q":
             peice = copy.deepcopy(Queen(-1))
-            w.add_peice(row_index,colum_index,"b_queen.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="k":
             peice = copy.deepcopy(King(-1))
-            w.add_peice(row_index,colum_index,"b_king.png")
+            w.add_peice(row_index,colum_index,peice)
         if char =="p":
             peice = copy.deepcopy(Pawn(-1))
-            w.add_peice(row_index,colum_index,"b_pawn.png")
+            w.add_peice(row_index,colum_index,peice)
 
         play_board.add_peice(peice,row_index,colum_index)
         colum_index += 1
     return FEN
 
-bishop = Bishop(1)
-play_board.add_peice(bishop,5,3)
-w.add_peice(5,3,bishop)
+#bishop = Bishop(1)
+#play_board.add_peice(bishop,5,3)
+#w.add_peice(5,3,bishop)
 
 #Move a given peice to a target position [v,h], links GUI with backend 
 #TODO: change FEN implementation so each peice object has a unique identfier
@@ -97,7 +97,7 @@ def move_peice(Peice : Peice, v: int,h :int):
     w.move_peice(Peice.v, Peice.h, v,h) #Moves peice in GUI
     play_board.move_peice(Peice,v,h) #Moves peice in Backend
 
-#initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
+initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
 
 #move_peice(pawn1,4,4)
 #w.remove_peice(5,5)

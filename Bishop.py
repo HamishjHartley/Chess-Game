@@ -6,7 +6,6 @@ from Board import Board
 class Bishop(Peice):
     def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
-        self.file_name = ["b_bishop.png", "w_bishop.png"]
 
     #Currently returns a list of all squares on left and right diagonals of bishop, ignoring other peices on diagonal
     def get_legal_moves(self, bit_board):

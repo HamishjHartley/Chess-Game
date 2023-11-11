@@ -87,9 +87,9 @@ def initalize_from_fen(FEN:str):
         colum_index += 1
     return FEN
 
-pawn1 = Pawn(1)
-play_board.add_peice(pawn1,2,3)
-w.add_peice(2,3,"w_pawn.png")
+bishop = Bishop(1)
+play_board.add_peice(bishop,5,3)
+w.add_peice(5,3,bishop)
 
 #Move a given peice to a target position [v,h], links GUI with backend 
 #TODO: change FEN implementation so each peice object has a unique identfier
@@ -99,7 +99,7 @@ def move_peice(Peice : Peice, v: int,h :int):
 
 #initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
 
-move_peice(pawn1,4,4)
+#move_peice(pawn1,4,4)
 #w.remove_peice(5,5)
 
 w.show()

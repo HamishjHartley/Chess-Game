@@ -11,7 +11,7 @@ from Board import Board
 from Peice import Peice
 from Rook import Rook
 from Bishop import Bishop
-
+from Queen import Queen
 #Sets window dimensions
 class Setting:
     WIDTH = 80
@@ -24,9 +24,11 @@ play_board = Board()
 
 rook1 = Rook(1)
 bishop1 = Bishop(1)
+queen0 = Queen(0)
 
 play_board.add_peice(rook1, 3,5)
 play_board.add_peice(bishop1,2,2)
+play_board.add_peice(queen0,4,4)
 
 #Loads an image dictionary which can be accessed through the icon filenames
 def load_images_from_folder(folder):
@@ -52,6 +54,7 @@ class QS(QGraphicsScene):
 
         self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Desktop/Chess-Game/icons")
         self.added_peices ={} #Dictionary to keep track of added peices to GUI
+        self.rendered_moves= []
 
     def add_peice(self,v: int, h:int ,peice: Peice):
         peice_label = ClickLabel() 
@@ -76,16 +79,26 @@ class QS(QGraphicsScene):
     #Highlights a square on board defined by [v,h]
     def highlight_square(self,v,h):
         square = QtCore.QRectF(80*h,80*v,80,80)
-        self.addRect(square,
+        return self.addRect(square,
                      QPen(QtCore.Qt.red,  1, QtCore.Qt.SolidLine),
                      QBrush(QtCore.Qt.red, QtCore.Qt.FDiagPattern)
         )
 
     def show_moves(self,peice: Peice):
+        #Loops through currently rendered moves and removes them from screen
+        for rendered_move in self.rendered_moves:
+            self.removeItem(rendered_move)
+        self.rendered_moves.clear() #Clears list of rendered moves
+
         state_board = play_board.bit_board
         moves = peice.get_legal_moves(state_board)
+        #For each legal move, render corresponding square on board
         for move in moves:
-            self.highlight_square(move[0], move[1])
+            self.rendered_moves.append(self.highlight_square(move[0], move[1]))
+            print("Rendered move")
+
+
+
         
 
     def drawBackground(self, painter, rect):
@@ -130,6 +143,7 @@ if __name__ == "__main__":
 
     w.add_peice(3,5,rook1)
     w.add_peice(2,2,bishop1)
+    w.add_peice(4,4,queen0)
     w.show()
 
     sys.exit(app.exec_())

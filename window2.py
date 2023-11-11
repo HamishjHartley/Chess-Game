@@ -145,9 +145,4 @@ if __name__ == "__main__":
     w.add_peice(2,2,bishop1)
     w.add_peice(4,4,queen0)
     w.show()
-
-<<<<<<< HEAD
     sys.exit(app.exec_())
-=======
-    sys.exit(app.exec_())
->>>>>>> ed876264aec982e609d276c71fa976f9f973922f

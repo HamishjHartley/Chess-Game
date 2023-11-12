@@ -9,7 +9,7 @@ class Board:
         self.board = np.zeros((8,8), dtype=Peice)
 
         #"bit board" to hold the state of each square on the board for easier move/capture calculation
-        self.bit_board = np.full((8,8),2,dtype=int)
+        self.bit_board = np.full((8,8),0,dtype=int)
 
         #TODO: possibly create Move class, or move this to Board class
         move_stack =[]
@@ -21,7 +21,11 @@ class Board:
         Peice.update_position(v, h)
 
         #Simulatniously update bit board with the associated integer value for each sqaure. 
-        self.bit_board[v, h] = Peice.COLOUR
+        #-1 for black, 1 for white
+        if Peice.COLOUR == -1:
+            self.bit_board[v, h] = -1
+        if Peice.COLOUR == 1:
+            self.bit_board[v, h] = 1
 
     #Removes a given peice from the 8x8 board array(By replacing with a 0)
     def remove_peice(self, Peice: Peice):

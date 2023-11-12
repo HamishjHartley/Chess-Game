@@ -6,7 +6,23 @@ from Board import Board
 class Bishop(Peice):
     def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
-        self.file_name=["b_bishop.png", "w_bishop.png"]
+        #self.file_name=["b_bishop.png", "w_bishop.png"]
+
+    def get_file_name(self):
+        if self.COLOUR == -1:
+            return "b_bishop.png"
+        if self.COLOUR == 1:
+            return "w_bishop.png"
+
+    def check_legal_move(self, v:int, h:int, bit_board):
+        current_square = (v,h)
+        if bit_board[current_square] == self.COLOUR:
+            return -1
+        if bit_board[current_square] == self.COLOUR*-1: #If opposite coloured piece on square
+            self.legal_moves.append(current_square)
+            return -1
+        self.legal_moves.append(current_square)
+        print("Added move " + str(v) + " " + str(h))
 
     #Currently returns a list of all squares on left and right diagonals of bishop, ignoring other peices on diagonal
     def get_legal_moves(self, bit_board):
@@ -19,9 +35,8 @@ class Bishop(Peice):
         search_pos[0] +=1
         search_pos[1] += 1
         while search_pos[0] <= 7 and search_pos[1] <= 7:
-            if board_state[search_pos[0],search_pos[1]] != 2:
+            if self.check_legal_move(search_pos[0],search_pos[1],bit_board) == -1:
                 break
-            self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] += 1
             search_pos[1] += 1
 
@@ -30,9 +45,8 @@ class Bishop(Peice):
         search_pos[0] -= 1
         search_pos[1] += 1
         while search_pos[0] >= 0 and search_pos[1] <= 7:
-            if board_state[search_pos[0],search_pos[1]] != 2:
+            if self.check_legal_move(search_pos[0],search_pos[1],bit_board) == -1:
                 break
-            self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] -= 1
             search_pos[1] += 1
 
@@ -41,9 +55,8 @@ class Bishop(Peice):
         search_pos[0] += 1
         search_pos[1] -= 1
         while search_pos[0] <= 7 and search_pos[1] >= 0:
-            if board_state[search_pos[0],search_pos[1]] != 2:
+            if self.check_legal_move(search_pos[0],search_pos[1],bit_board) == -1:
                 break
-            self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] += 1
             search_pos[1] -= 1
 
@@ -52,9 +65,8 @@ class Bishop(Peice):
         search_pos[0] -=1
         search_pos[1] -= 1
         while search_pos[0] >= 0 and search_pos[1] >= 0:
-            if board_state[search_pos[0],search_pos[1]] != 2:
+            if self.check_legal_move(search_pos[0],search_pos[1],bit_board) == -1:
                 break
-            self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] -= 1
             search_pos[1] -= 1
 

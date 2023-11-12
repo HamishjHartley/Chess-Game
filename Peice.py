@@ -5,7 +5,7 @@ class Peice:
     #Constructor which initiialzes the vertial and horizontal position of the Peice
     #TODO: throw exception if colour not 0 or 1
     def __init__(self, colour:int):
-        self.COLOUR = colour #Colour class constant, 1 = W, 0 =B
+        self.COLOUR = colour #Colour class constant, 1 = W, -1 =B
         self.v = 0
         self.h = 0
         self.legal_moves =[]

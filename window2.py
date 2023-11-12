@@ -12,6 +12,7 @@ from Peice import Peice
 from Rook import Rook
 from Bishop import Bishop
 from Queen import Queen
+from Pawn import Pawn
 #Sets window dimensions
 class Setting:
     WIDTH = 80
@@ -24,11 +25,15 @@ play_board = Board()
 
 rook1 = Rook(1)
 bishop1 = Bishop(1)
-queen0 = Queen(0)
+bishop0 = Bishop(-1)
+queen0 = Queen(-1)
+pawn1 = Pawn(-1)
 
 play_board.add_peice(rook1, 3,5)
 play_board.add_peice(bishop1,2,5)
+play_board.add_peice(bishop0,1,4)
 play_board.add_peice(queen0,3,4)
+play_board.add_peice(pawn1,2,2)
 
 #Loads an image dictionary which can be accessed through the icon filenames
 def load_images_from_folder(folder):
@@ -59,7 +64,7 @@ class QS(QGraphicsScene):
 
     def add_peice(self,v: int, h:int ,peice: Peice):
         peice_label = ClickLabel() 
-        pixmap = self.peice_icons[peice.file_name[peice.COLOUR]] #creates a pixmap from the peice_icon's dictionary
+        pixmap = self.peice_icons[peice.get_file_name()] #creates a pixmap from the peice_icon's dictionary
         peice_label.setPixmap(pixmap)
         peice_label.move(10+80*h,10+80*v) #Set position of peice_label given by [v,h]
         self.addWidget(peice_label)
@@ -141,6 +146,8 @@ if __name__ == "__main__":
 
     w.add_peice(3,5,rook1)
     w.add_peice(2,5,bishop1)
+    w.add_peice(1,4,bishop0)
     w.add_peice(3,4,queen0)
+    w.add_peice(2,2,pawn1)
     w.show()
     sys.exit(app.exec_())

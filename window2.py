@@ -6,7 +6,6 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QMouseEvent, QPainter, QPen, QColor, QPixmap
 
-
 from Board import Board
 from Peice import Peice
 from Rook import Rook
@@ -35,7 +34,7 @@ play_board.add_peice(bishop1,2,5)
 play_board.add_peice(bishop0,1,4)
 play_board.add_peice(queen0,3,4)
 play_board.add_peice(pawn1,2,2)
-play_board.add_peice(pawn0,3,3)
+play_board.add_peice(pawn0,1,3)
 
 
 #Loads an image dictionary which can be accessed through the icon filenames
@@ -76,8 +75,10 @@ class QS(QGraphicsScene):
         peice_label.clicked.connect(lambda: self.show_moves(peice))
         
     def remove_peice(self,v: int, h:int):
-        self.removeItem(self.added_peices[v,h]) 
-        print("Removed peice")
+        
+        self.added_peices[v,h] = None
+        #self.removeWidget(self.added_peices[v,h]) 
+        #print("Removed peice")
 
     #TODO: Implement remove peice function which removes Pixmap from given [v,h]
     def move_peice(self,v: int, h: int, target_v:int, target_h:int):
@@ -139,8 +140,8 @@ class MainWindow(QMainWindow):
     # def move_peice(self,v:int,h:int, target_v:int, target_h:int):
     #     self.scene.move_peice(v,h,target_v,target_h)
 
-    # def remove_peice(self,v: int, h:int):
-    #     self.scene.remove_peice(v,h)
+    def remove_peice(self,v: int, h:int):
+        self.scene.remove_peice(v,h)
     
 
 if __name__ == "__main__":
@@ -152,6 +153,8 @@ if __name__ == "__main__":
     w.add_peice(1,4,bishop0)
     w.add_peice(3,4,queen0)
     w.add_peice(2,2,pawn1)
-    w.add_peice(3,3,pawn0)
+    w.add_peice(1,3,pawn0)
+
+
     w.show()
     sys.exit(app.exec_())

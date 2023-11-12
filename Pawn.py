@@ -28,11 +28,21 @@ class Pawn(Peice):
 
     #Returns a list of legal move(s) specific to a Pawn peice
     def get_legal_moves(self, bit_board):
-        #Straight ahead
-        self.check_legal_move(self.v+1, self.h,bit_board,False)
-        #Capture left
-        self.check_legal_move(self.v+1, self.h-1,bit_board,True)
-        #Capture right
-        self.check_legal_move(self.v+1, self.h+1,bit_board,True)
+        #White pawn forward movement
+        if self.COLOUR == 1:
+            #Straight ahead
+            self.check_legal_move(self.v+1, self.h,bit_board,False)
+            #Capture left
+            self.check_legal_move(self.v+1, self.h-1,bit_board,True)
+            #Capture right
+            self.check_legal_move(self.v+1, self.h+1,bit_board,True)
+        #Black pawn forward movement
+        elif self.COLOUR == -1:
+            #Straight ahead
+            self.check_legal_move(self.v-1, self.h,bit_board,False)
+            #Capture left
+            self.check_legal_move(self.v-1, self.h+1,bit_board,True)
+            #Capture right
+            self.check_legal_move(self.v-1, self.h-1,bit_board,True)
 
         return self.legal_moves

@@ -28,12 +28,15 @@ bishop1 = Bishop(1)
 bishop0 = Bishop(-1)
 queen0 = Queen(-1)
 pawn1 = Pawn(-1)
+pawn0 = Pawn(1)
 
 play_board.add_peice(rook1, 3,5)
 play_board.add_peice(bishop1,2,5)
 play_board.add_peice(bishop0,1,4)
 play_board.add_peice(queen0,3,4)
 play_board.add_peice(pawn1,2,2)
+play_board.add_peice(pawn0,3,3)
+
 
 #Loads an image dictionary which can be accessed through the icon filenames
 def load_images_from_folder(folder):
@@ -149,5 +152,6 @@ if __name__ == "__main__":
     w.add_peice(1,4,bishop0)
     w.add_peice(3,4,queen0)
     w.add_peice(2,2,pawn1)
+    w.add_peice(3,3,pawn0)
     w.show()
     sys.exit(app.exec_())

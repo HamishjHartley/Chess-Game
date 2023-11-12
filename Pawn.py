@@ -18,18 +18,21 @@ class Pawn(Peice):
         if self.COLOUR == 1:
             return "w_pawn.png"
 
-    def check_legal_move(self,direction: tuple,bit_board):
-        if bit_board[direction] == 0:
-            self.legal_moves.append(direction)
-            print(direction)
-        elif bit_board[direction] == self.COLOUR * -1: #if inverse of current peice's colour
-            print(direction)
-            self.legal_moves.append(direction)
+    def check_legal_move(self,v:int,h:int,bit_board,capture:bool):
+        if bit_board[v,h] == 0 and capture ==False:
+            self.legal_moves.append((v,h))
+            print(v,h)
+        elif bit_board[v,h] == self.COLOUR * -1 and capture == True: #if inverse of current peice's colour
+            print(v,h)
+            self.legal_moves.append((v,h))
 
     #Returns a list of legal move(s) specific to a Pawn peice
     def get_legal_moves(self, bit_board):
-        self.check_legal_move(self.straight_ahead,bit_board)
-        #self.check_legal_move(self.capture_left,bit_board)
-        #self.check_legal_move(self.capture_right,bit_board)
+        #Straight ahead
+        self.check_legal_move(self.v+1, self.h,bit_board,False)
+        #Capture left
+        self.check_legal_move(self.v+1, self.h-1,bit_board,True)
+        #Capture right
+        self.check_legal_move(self.v+1, self.h+1,bit_board,True)
 
         return self.legal_moves

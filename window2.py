@@ -27,8 +27,8 @@ bishop1 = Bishop(1)
 queen0 = Queen(0)
 
 play_board.add_peice(rook1, 3,5)
-play_board.add_peice(bishop1,2,2)
-play_board.add_peice(queen0,4,4)
+play_board.add_peice(bishop1,2,5)
+play_board.add_peice(queen0,3,4)
 
 #Loads an image dictionary which can be accessed through the icon filenames
 def load_images_from_folder(folder):
@@ -52,7 +52,7 @@ class QS(QGraphicsScene):
     def __init__(self, parent=None):
         super(QS, self).__init__(QtCore.QRectF(0, 0, col * Setting.WIDTH, row * Setting.HEIGHT), parent)
 
-        self.peice_icons = load_images_from_folder("C:/Users/theha/OneDrive/Documents/GitHub/Chess-Game/icons")
+        self.peice_icons = load_images_from_folder("C:/Users/theha/Documents/GitHub/Chess-Game/icons")
 
         self.added_peices ={} #Dictionary to keep track of added peices to GUI
         self.rendered_moves= []
@@ -96,7 +96,7 @@ class QS(QGraphicsScene):
         #For each legal move, render corresponding square on board
         for move in moves:
             self.rendered_moves.append(self.highlight_square(move[0], move[1]))
-            print("Rendered move")
+            #print("Rendered move")
 
 
     def drawBackground(self, painter, rect):
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     w = MainWindow()
 
     w.add_peice(3,5,rook1)
-    w.add_peice(2,2,bishop1)
-    w.add_peice(4,4,queen0)
+    w.add_peice(2,5,bishop1)
+    w.add_peice(3,4,queen0)
     w.show()
     sys.exit(app.exec_())

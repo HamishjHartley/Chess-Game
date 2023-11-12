@@ -4,7 +4,7 @@ class Rook(Peice):
     def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
         self.file_name = ["b_rook.png", "w_rook.png"]
-        
+
     def get_legal_moves(self, bit_board):
         board_state = bit_board
         origin_pos = [self.v, self.h]
@@ -13,8 +13,10 @@ class Rook(Peice):
         search_pos = [self.v, self.h]
         search_pos[0] += 1
         while search_pos[0] <=7:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
-            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             #bit_board[search_pos] = 9
             search_pos[0] += 1
 
@@ -22,8 +24,10 @@ class Rook(Peice):
         search_pos = [self.v, self.h]
         search_pos[0] -= 1
         while search_pos[0] >=0:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break            
             self.legal_moves.append([search_pos[0], search_pos[1]])
-            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             #bit_board[search_pos] = 9
             search_pos[0] -= 1
 
@@ -31,8 +35,10 @@ class Rook(Peice):
         search_pos = [self.v, self.h]
         search_pos[1] -= 1
         while search_pos[1] >=0:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
-            #print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
+            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             #bit_board[search_pos] = 9
             search_pos[1] -= 1
 
@@ -40,9 +46,12 @@ class Rook(Peice):
         search_pos = [self.v, self.h]
         search_pos[1] += 1
         while search_pos[1] <=7:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
+            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             #bit_board[search_pos] = 9
             search_pos[1] += 1
 
-        #print(bit_board)
+        print(bit_board)
         return self.legal_moves

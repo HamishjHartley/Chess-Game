@@ -19,6 +19,8 @@ class Bishop(Peice):
         search_pos[0] +=1
         search_pos[1] += 1
         while search_pos[0] <= 7 and search_pos[1] <= 7:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] += 1
             search_pos[1] += 1
@@ -28,6 +30,8 @@ class Bishop(Peice):
         search_pos[0] -= 1
         search_pos[1] += 1
         while search_pos[0] >= 0 and search_pos[1] <= 7:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] -= 1
             search_pos[1] += 1
@@ -37,6 +41,8 @@ class Bishop(Peice):
         search_pos[0] += 1
         search_pos[1] -= 1
         while search_pos[0] <= 7 and search_pos[1] >= 0:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
             search_pos[0] += 1
             search_pos[1] -= 1
@@ -46,9 +52,11 @@ class Bishop(Peice):
         search_pos[0] -=1
         search_pos[1] -= 1
         while search_pos[0] >= 0 and search_pos[1] >= 0:
+            if board_state[search_pos[0],search_pos[1]] != 2:
+                break
             self.legal_moves.append([search_pos[0], search_pos[1]])
-            print("Added move " + str(search_pos[0]) + " " + str(search_pos[1]))
             search_pos[0] -= 1
             search_pos[1] -= 1
 
+        print(bit_board)
         return self.legal_moves

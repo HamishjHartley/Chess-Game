@@ -9,7 +9,7 @@ class Board:
         self.board = np.zeros((8,8), dtype=Peice)
 
         #"bit board" to hold the state of each square on the board for easier move/capture calculation
-        self.bit_board = np.zeros((8,8), dtype=int)
+        self.bit_board = np.full((8,8),2,dtype=int)
 
         #TODO: possibly create Move class, or move this to Board class
         move_stack =[]

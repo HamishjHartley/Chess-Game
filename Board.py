@@ -27,16 +27,16 @@ class Board:
         Peice.update_position(v, h)
 
     #Removes a given peice from the 8x8 board array(By replacing with a 0)
-    def remove_peice(self,v:int,h:int, Peice: Peice):
+    def remove_peice(self,Peice: Peice,v:int,h:int):
         self.board[v,h]=0
-
         #Simulatniously updates bit board 
         self.bit_board[v,h] = 0
     
     # #Moves a given peice to a target position
     #by removing from original square and adding it to target square
     def move_peice(self, Peice: Peice, v: int, h:int):
-        self.remove_peice(Peice)
+        self.remove_peice(Peice,Peice.v,Peice.h)
+  
         self.add_peice(Peice, v, h)
      
  

@@ -90,6 +90,7 @@ class QS(QGraphicsScene):
     def move_peice(self,v: int, h: int, target_v:int, target_h:int):
        self.added_peices[v,h].move(10+80*target_h,10+80*target_v)
        self.added_peices[target_v,target_h] = self.added_peices[v,h] #Updates the location key for moved peice
+       play_board.move_peice(rook1,target_v,target_h)
 
     #Highlights a square on board defined by [v,h]
     def highlight_square(self,v:int,h:int, peice:Peice):

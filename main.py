@@ -20,10 +20,11 @@ import os
 
 from window2 import MainWindow
 
-play_board = Board()
 
 app = QApplication(sys.argv)
 w = MainWindow()
+
+board = Board()
 
 #Initializes game based on FEN code
 def initalize_from_fen(FEN:str):
@@ -42,7 +43,7 @@ def initalize_from_fen(FEN:str):
             #print("New line")
             continue # Go to next iteration and skip following code
         if char.isdigit() == True:
-            play_board.board[row_index,colum_index : colum_index+ int(char):1] = 0
+            board.board[row_index,colum_index : colum_index+ int(char):1] = 0
             #print(char + " spaces added " + str(row_index) +" " + str(colum_index))
             colum_index += int(char)
             continue
@@ -83,23 +84,20 @@ def initalize_from_fen(FEN:str):
             peice = copy.deepcopy(Pawn(-1))
             w.add_peice(row_index,colum_index,peice)
 
-        play_board.add_peice(peice,row_index,colum_index)
+        board.add_peice(peice,row_index,colum_index)
         colum_index += 1
     return FEN
 
-#bishop = Bishop(1)
-#play_board.add_peice(bishop,5,3)
-#w.add_peice(5,3,bishop)
 
 #Move a given peice to a target position [v,h], links GUI with backend 
 #TODO: change FEN implementation so each peice object has a unique identfier
 def move_peice(Peice : Peice, v: int,h :int):
     w.move_peice(Peice.v, Peice.h, v,h) #Moves peice in GUI
-    play_board.move_peice(Peice,v,h) #Moves peice in Backend
+    board.move_peice(Peice,v,h) #Moves peice in Backend
 
-initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
+#initalize_from_fen("rnbqkb1r/ppp2ppp/4pn2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R")
 
-#move_peice(pawn1,4,4)
+#move_peice(bishop,4,4)
 #w.remove_peice(5,5)
 
 w.show()

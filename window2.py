@@ -54,6 +54,13 @@ class ClickLabel(QtWidgets.QLabel):
         self.clicked.emit()
         QtWidgets.QLabel.mousePressEvent(self, event)
 
+class ClickRect(QtCore.QRectF):
+    clicked = QtCore.pyqtSignal()
+
+    def mousePressEvent(self, event):
+        self.clicked.emit()
+        QtWidgets.QLabel.mousePressEvent(self, event)
+
 
 class QS(QGraphicsScene):
     def __init__(self, parent=None):
@@ -75,36 +82,42 @@ class QS(QGraphicsScene):
         peice_label.clicked.connect(lambda: self.show_moves(peice))
         
     def remove_peice(self,v: int, h:int):
-        
         self.added_peices[v,h] = None
         #self.removeWidget(self.added_peices[v,h]) 
         #print("Removed peice")
 
     #TODO: Implement remove peice function which removes Pixmap from given [v,h]
     def move_peice(self,v: int, h: int, target_v:int, target_h:int):
-        p = QtCore.QPointF(Setting.WIDTH*target_h, Setting.HEIGHT*target_v)
-        self.added_peices[v,h].setPos(p) #Moves peice 
-        self.added_peices[target_v,target_h] = self.added_peices[v,h] #Updates the location key for moved peice
+       self.added_peices[v,h].move(10+80*target_h,10+80*target_v)
+       self.added_peices[target_v,target_h] = self.added_peices[v,h] #Updates the location key for moved peice
 
     #Highlights a square on board defined by [v,h]
-    def highlight_square(self,v,h):
-        square = QtCore.QRectF(80*h,80*v,80,80)
-        return self.addRect(square,
-                     QPen(QtCore.Qt.red,  1, QtCore.Qt.SolidLine),
-                     QBrush(QtCore.Qt.red, QtCore.Qt.FDiagPattern)
-        )
+    def highlight_square(self,v:int,h:int, peice:Peice):
+        square_label = ClickLabel()
+        pixmap = self.peice_icons["select.png"] #creates a pixmap from the peice_icon's dictionary
+        square_label.setPixmap(pixmap)
+        square_label.move(10+80*h,10+80*v) #Set position of peice_label given by [v,h]
+        self.addWidget(square_label)
+        square_label.clicked.connect(lambda : self.move_peice(peice.v,peice.h,v,h))
+        return square_label
+        #square = ClickRect(80*h,80*v,80,80)
+        #square.clicked.connect(lambda: self.move_peice(peice.v,peice.h,v,h))
+        # return self.addRect(square,
+        #              QPen(QtCore.Qt.red,  1, QtCore.Qt.SolidLine),
+        #              QBrush(QtCore.Qt.red, QtCore.Qt.FDiagPattern)
+        # )
 
     def show_moves(self,peice: Peice):
         #Loops through currently rendered moves and removes them from screen
         for rendered_move in self.rendered_moves:
-            self.removeItem(rendered_move)
+            rendered_move.clear()
         self.rendered_moves.clear() #Clears list of rendered moves
 
         state_board = play_board.bit_board
         moves = peice.get_legal_moves(state_board)
         #For each legal move, render corresponding square on board
         for move in moves:
-            self.rendered_moves.append(self.highlight_square(move[0], move[1]))
+            self.rendered_moves.append(self.highlight_square(move[0], move[1],peice))
             #print("Rendered move")
 
 
@@ -137,8 +150,8 @@ class MainWindow(QMainWindow):
 
         #self.added_peices.append([v,h,peice_type])
 
-    # def move_peice(self,v:int,h:int, target_v:int, target_h:int):
-    #     self.scene.move_peice(v,h,target_v,target_h)
+    def move_peice(self,v:int,h:int, target_v:int, target_h:int):
+        self.scene.move_peice(v,h,target_v,target_h)
 
     def remove_peice(self,v: int, h:int):
         self.scene.remove_peice(v,h)
@@ -155,6 +168,8 @@ if __name__ == "__main__":
     w.add_peice(2,2,pawn1)
     w.add_peice(1,3,pawn0)
 
+    w.move_peice(2,2,5,5)
+    play_board.move_peice(pawn1,5,5)
 
     w.show()
     sys.exit(app.exec_())

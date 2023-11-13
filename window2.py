@@ -95,17 +95,18 @@ class QS(QGraphicsScene):
     def highlight_square(self,v:int,h:int, peice:Peice):
         square_label = ClickLabel()
         pixmap = self.peice_icons["select.png"] #creates a pixmap from the peice_icon's dictionary
-        square_label.setPixmap(pixmap)
         square_label.move(10+80*h,10+80*v) #Set position of peice_label given by [v,h]
+        square_label.setGeometry(10+80*h,10+80*v,40,40)
         self.addWidget(square_label)
         square_label.clicked.connect(lambda : self.move_peice(peice.v,peice.h,v,h))
         return square_label
-        #square = ClickRect(80*h,80*v,80,80)
-        #square.clicked.connect(lambda: self.move_peice(peice.v,peice.h,v,h))
-        # return self.addRect(square,
-        #              QPen(QtCore.Qt.red,  1, QtCore.Qt.SolidLine),
-        #              QBrush(QtCore.Qt.red, QtCore.Qt.FDiagPattern)
-        # )
+    
+        square = ClickRect(80*h,80*v,80,80)
+        square.clicked.connect(lambda: self.move_peice(peice.v,peice.h,v,h))
+        return self.addRect(square,
+                     QPen(QtCore.Qt.red,  1, QtCore.Qt.SolidLine),
+                      QBrush(QtCore.Qt.red, QtCore.Qt.FDiagPattern)
+         )
 
     def show_moves(self,peice: Peice):
         #Loops through currently rendered moves and removes them from screen

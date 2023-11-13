@@ -18,27 +18,27 @@ class Board:
     #TODO: Throw exception if position reference out of bounds of board array
     def add_peice(self, Peice: Peice, v : int, h: int):
         self.board[v,h]= Peice
-        Peice.update_position(v, h)
-
         #Simulatniously update bit board with the associated integer value for each sqaure. 
         #-1 for black, 1 for white
         if Peice.COLOUR == -1:
             self.bit_board[v, h] = -1
         if Peice.COLOUR == 1:
             self.bit_board[v, h] = 1
+        Peice.update_position(v, h)
 
     #Removes a given peice from the 8x8 board array(By replacing with a 0)
-    def remove_peice(self, Peice: Peice):
-        self.board[Peice.current_position()]= 0
+    def remove_peice(self,v:int,h:int, Peice: Peice):
+        self.board[v,h]=0
 
         #Simulatniously updates bit board 
-        self.bit_board[Peice.current_position()] = 0
+        self.bit_board[v,h] = 0
     
     # #Moves a given peice to a target position
     #by removing from original square and adding it to target square
     def move_peice(self, Peice: Peice, v: int, h:int):
         self.remove_peice(Peice)
         self.add_peice(Peice, v, h)
-
+     
+ 
     def get_bit_board(self):
         return self.bit_board

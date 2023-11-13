@@ -18,7 +18,7 @@ class Peice:
 
     #Returns the current location of the peice
     def current_position(self):
-        return self.v, self.h
+        return (self.v, self.h)
     
     def get_legal_moves(self):
         return self.legal_moves

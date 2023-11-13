@@ -30,11 +30,11 @@ pawn1 = Pawn(-1)
 pawn0 = Pawn(1)
 
 play_board.add_peice(rook1, 3,5)
-play_board.add_peice(bishop1,2,5)
-play_board.add_peice(bishop0,1,4)
-play_board.add_peice(queen0,3,4)
-play_board.add_peice(pawn1,2,2)
-play_board.add_peice(pawn0,1,3)
+# play_board.add_peice(bishop1,2,5)
+# play_board.add_peice(bishop0,1,4)
+# play_board.add_peice(queen0,3,4)
+# play_board.add_peice(pawn1,2,2)
+# play_board.add_peice(pawn0,1,3)
 
 
 #Loads an image dictionary which can be accessed through the icon filenames
@@ -119,7 +119,8 @@ class QS(QGraphicsScene):
         #For each legal move, render corresponding square on board
         for move in moves:
             self.rendered_moves.append(self.highlight_square(move[0], move[1],peice))
-            #print("Rendered move")
+        #print(state_board)
+        print(play_board.board)
 
 
     def drawBackground(self, painter, rect):
@@ -153,6 +154,7 @@ class MainWindow(QMainWindow):
 
     def move_peice(self,v:int,h:int, target_v:int, target_h:int):
         self.scene.move_peice(v,h,target_v,target_h)
+        play_board.move_peice(rook1,target_v,target_h)
 
     def remove_peice(self,v: int, h:int):
         self.scene.remove_peice(v,h)
@@ -163,14 +165,14 @@ if __name__ == "__main__":
     w = MainWindow()
 
     w.add_peice(3,5,rook1)
-    w.add_peice(2,5,bishop1)
-    w.add_peice(1,4,bishop0)
-    w.add_peice(3,4,queen0)
-    w.add_peice(2,2,pawn1)
-    w.add_peice(1,3,pawn0)
+    # w.add_peice(2,5,bishop1)
+    # w.add_peice(1,4,bishop0)
+    # w.add_peice(3,4,queen0)
+    # w.add_peice(2,2,pawn1)
+    # w.add_peice(1,3,pawn0)
 
-    w.move_peice(2,2,5,5)
-    play_board.move_peice(pawn1,5,5)
+    # w.move_peice(2,2,5,5)
+    # play_board.move_peice(pawn1,5,5)
 
     w.show()
     sys.exit(app.exec_())

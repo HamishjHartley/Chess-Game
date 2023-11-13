@@ -6,7 +6,7 @@ from Board import Board
 class Knight(Peice):
     def __init__(self, colour:int):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
-        self.file_name = ["b_knight.png", "w_knight.png"]
+        #self.file_name = ["b_knight.png", "w_knight.png"]
         
     def get_file_name(self):
         if self.COLOUR == -1:

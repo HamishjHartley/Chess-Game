@@ -5,7 +5,7 @@ from Peice import Peice
 class King(Peice):
     def __init__(self, colour):
         Peice.__init__(self, colour) #to keep the inheritance of Peice's "__init__" function
-        self.file_name = ["b_king.png", "w_king.png"]
+        #self.file_name = ["b_king.png", "w_king.png"]
 
     def get_file_name(self):
         if self.COLOUR == -1:
